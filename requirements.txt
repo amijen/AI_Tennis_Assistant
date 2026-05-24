@@ -1,0 +1,9 @@
+langchain
+langchain-community
+pypdf 
+psycopg2-binary
+sqlalchemy
+pgvector
+ollama
+tqdm
+python-dotenv
