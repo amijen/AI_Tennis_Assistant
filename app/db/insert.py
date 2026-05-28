@@ -10,8 +10,8 @@ def insert_document(conn, name):
 def insert_chunk(conn, document_id, content, page, type_, embedding):
     conn.execute(
         text("""
-             INSERT INTO chuncks (document_id, content, page, type, embedding)
-             VALUES (:doc_id, :content, :page, :type, :embedding)
+             INSERT INTO chunks (document_id, content, page, type, embedding)
+             VALUES (:doc_id, :content, :page, :type, CAST(:embedding AS vector))
         """),
         {
             "doc_id": document_id,
