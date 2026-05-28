@@ -15,10 +15,9 @@ This project demonstrates an end-to-end **Agentic AI architecture** where an LLM
 ```
 TENNIS/
 ├── app/
-│   └── core/
-│       ├── db/                  # Database, schema, retriever
-│       ├── ingestion/           # PDF loader, splitter, embedder
-│       └── agent/               # LangChain agent & tools
+│   └──├── db/                  # Database, schema, retriever
+│      ├── ingestion/           # PDF loader, splitter, embedder
+│      └── agent/               # LangChain agent & tools
 ├── scripts/
 │   └── ingest.py                # Ingestion pipeline
 ├── data/
