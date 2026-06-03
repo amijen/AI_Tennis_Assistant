@@ -50,7 +50,7 @@ def load_pdf_as_pages(pdf_path: str, skip_pages: int = 0) -> list[dict]:
             if cleaned:  # Skip if cleaning leaves nothing
                 pages.append({
                     "page": page_no,
-                    "markdown": cleaned,
+                    "text": cleaned,
                     "source": str(pdf_path)
                 })
     
