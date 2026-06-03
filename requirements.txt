@@ -1,10 +1,15 @@
 langchain
 langchain-community
 langchain_text_splitters
+langchain-core
+langchain-groq
 pypdf 
 psycopg2-binary
 sqlalchemy
 pgvector
-ollama
+llama-cpp-python
 tqdm
 python-dotenv
+huggingface-hub
+sentence-transformers
+torch
