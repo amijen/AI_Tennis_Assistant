@@ -29,15 +29,17 @@ TENNIS/
 ```
 ## ⚙️ Tech Stack
 
-| Layer            | Technology                              |
-|------------------|------------------------------------------|
-| LLM Orchestration| LangChain                               |
-| LLM              | Ollama (llama3)                         |
-| Embeddings       | Ollama (nomic-embed-text, 768 dims)     |
-| Vector Database  | PostgreSQL + pgvector                   |
-| Backend API      | FastAPI                                 |
-| Frontend         | React                                   |
-| PDF Parsing      | PyPDFLoader                             |
+| Layer            | Technology                                              |
+|------------------|---------------------------------------------------------|
+| LLM Orchestration| LangChain (LCEL chains)                                 |
+| LLM (synthesis)  | Groq — `llama-3.3-70b-versatile`                        |
+| LLM (classifier) | Groq — `llama-3.1-8b-instant`                           |
+| Embeddings       | HuggingFace — `BAAI/bge-base-en-v1.5` (768 dims)        |
+| Vector Database  | PostgreSQL + pgvector                                   |
+| Backend API      | FastAPI                                                 |
+| Frontend         | React                                                   |
+| PDF Parsing      | PyPDF                                                   |
+| Chunking         | Parent-child strategy with regex-based structure        |
 
 ## 🚀 Getting Started
 
@@ -45,7 +47,7 @@ TENNIS/
 
 - Python 3.10+
 - PostgreSQL 14+ with [`pgvector`](https://github.com/pgvector/pgvector) extension
-- [Ollama](https://ollama.com) installed and running
+- A free [Groq API key](https://console.groq.com)
 
 ### 2. Clone the Repository
 
@@ -62,21 +64,25 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### 4. Setup PostgreSQL Database
+### 4. Configure Environment Variables
+
+Create a `.env` file at the project root:
+
+```env
+DB_URL=postgresql://user:password@localhost:5432/tennis
+GROQ_API_KEY=gsk_your_key_here
+GROQ_MODEL=llama-3.3-70b-versatile
+CLASSIF_MODEL=llama-3.1-8b-instant
+```
+
+### 5. Setup PostgreSQL Database
 
 ```bash
 # Create the database
 createdb tennis
 
 # Apply the schema
-psql -d tennis -f app/core/db/schema.sql
-```
-
-### 5. Pull Ollama Models
-
-```bash
-ollama pull nomic-embed-text
-ollama pull llama3
+psql -d tennis -f app/db/schema.sql
 ```
 
 ### 6. Place PDFs
@@ -88,21 +94,31 @@ Download the official rulebooks and place them in `data/raw/`:
 ### 7. Run the Ingestion Pipeline
 
 ```bash
-python scripts/ingest.py
+python -m scripts.ingest
 ```
 
-### 8. Start the API (coming next)
+This will parse the PDFs, split them into parent-child chunks, generate embeddings with `BAAI/bge-base-en-v1.5`, and store everything in PostgreSQL.
+
+### 8. Test the Agent
+
+```bash
+python -m scripts.test_agent
+```
+
+### 9. Start the API (coming next)
 
 ```bash
 uvicorn app.main:app --reload
 ```
 
+
 ## 🛣️ Roadmap
 
-- [x] Data ingestion pipeline (loader, splitter, embedder)
-- [x] Vector database with pgvector
-- [ ] Retrieval layer with semantic search
-- [ ] LangChain agent with 3 tools
+- [x] Data ingestion pipeline (PyPDF loader, parent-child splitter, HuggingFace embedder)
+- [x] Vector database with pgvector + parent-child retrieval
+- [x] Controlled router agent with 4 tools (search_itf, search_gs, compare, refuse)
+- [x] LLM-powered query/topic extraction with defensive cleanup
+- [x] Source-grounded answers with real page citations
 - [ ] FastAPI backend
 - [ ] React frontend
 - [ ] Docker deployment
@@ -112,9 +128,11 @@ uvicorn app.main:app --reload
 Key concepts explored:
 
 - Agentic AI architectures with LangChain
-- Retrieval-Augmented Generation (RAG)
+- Retrieval-Augmented Generation (RAG) with parent-child chunking
 - Vector similarity search with pgvector
-- Local LLM inference with Ollama
+- Local LLM inference with Groq
+- Local embedding inference with HuggingFace `sentence-transformers`
+- LangChain Expression Language (LCEL) chains
 - Full-stack AI application development
 
 ## 🙏 Acknowledgements
