@@ -1,0 +1,36 @@
+services:
+  db:
+    image: ankane/pgvector:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: tennis
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: <your_password>
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./app/db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+
+  backend:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      DB_URL: postgresql://postgres:<your_password>@db:5432/tennis
+    depends_on:
+      - db
+    # Run as a script (more reliable in Docker)
+    command: sh -c "python scripts/ingest.py && uvicorn app.main:app --host 0.0.0.0 --port 8000"
+    # No volume for data — we COPY it in the Dockerfile instead
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
