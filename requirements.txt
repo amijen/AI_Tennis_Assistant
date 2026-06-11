@@ -13,3 +13,5 @@ python-dotenv
 huggingface-hub
 sentence-transformers
 torch
+fastapi
+uvicorn
