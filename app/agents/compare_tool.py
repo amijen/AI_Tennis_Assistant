@@ -1,8 +1,5 @@
-from langchain.tools import tool
 from app.db.retriever import search_similar_chunks
-from app.agents.prompts import COMPARE_TOOL_DESCRIPTION
 
-@tool("compare_tools", description=COMPARE_TOOL_DESCRIPTION)
 def compare_rules(topic: str) -> str:
     """
     Retrieve rule excerpts from both ITF and Grand Slam rulebooks for comparaison. 
