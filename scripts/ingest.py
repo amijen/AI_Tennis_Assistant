@@ -6,7 +6,7 @@ from app.db.insert import insert_document, insert_parent_chunk, insert_child_chu
 
 from tqdm import tqdm 
 
-def ingest(pdf_path, doc_name, doc_type):
+def ingest(pdf_path, doc_name, doc_type, skip_pages):
     """
     Ingest a PDF into the database with parent-child chunks.
 
@@ -22,7 +22,7 @@ def ingest(pdf_path, doc_name, doc_type):
     print(f"{'='*50}")
 
     # ── 1. Load PDF into page dicts ─────────────────────────
-    pages = load_pdf_as_pages(pdf_path)
+    pages = load_pdf_as_pages(pdf_path, skip_pages)
 
     # ── 2. Split: pages → parents → children ────────────────
     parents = process_document(pages, doc_type)
@@ -65,9 +65,11 @@ if __name__ == "__main__":
         pdf_path="data/raw/2026-rules-of-tennis-english.pdf",
         doc_name="ITF Rules",
         doc_type="ITF",
+        skip_pages = 4
     )
     ingest(
         pdf_path="data/raw/grand-slam-rulebook-2026-f2.pdf",
         doc_name="Grand Slam Rules",
         doc_type="Grand Slam",
+        skip_pages = 6
     )
