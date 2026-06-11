@@ -136,11 +136,6 @@ def normalize_query(question: str) -> str:
 
     return " ".join(tokens[:10])
 
-
-# ============================================================
-# ROBUST RETRIEVAL 
-# ============================================================
-
 def _dedupe_results(results: list[dict]) -> list[dict]:
     """Remove duplicate chunks, keeping highest similarity."""
     seen = {}
