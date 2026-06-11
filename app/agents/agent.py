@@ -10,6 +10,7 @@ we use a deterministic router:
 
 This is production-grade LangChain: RunnableSequence + explicit orchestration.
 """
+import json
 import os
 import dotenv
 dotenv.load_dotenv()
@@ -38,110 +39,113 @@ def classify_intent(question: str) -> Literal["search_itf", "search_gs", "compar
     """
     Use LLM to classify the question intent.
     """
-    # Out-of-scope check
-    out_of_scope_keywords = ["won", "winner", "champion", "score", "result", 
-                            "wimbledon 20", "ranking", "atp", "wta", 
-                            "career", "born", "age of", "history of"]
-    if any(kw in question.lower() for kw in out_of_scope_keywords):
-        return "refuse"
-    
-    # HEURISTIC: Check for comparison signals BEFORE asking LLM (saves a call)
-    comparison_signals = [
-        "compare", "comparison", "vs", "versus",
-        "difference", "differ", "differs", "different",
-        "between itf", "between grand slam", "between the two",
-        "how do.*differ", "how does.*differ"
-    ]
-    question_lower = question.lower()
-    if any(signal in question_lower for signal in comparison_signals):
-        return "compare"
-    
     # Use LLM for the remaining nuanced classifications
-    prompt = ChatPromptTemplate.from_template("""
-You are a helpful AI assistant for a tennis application. Your task is to classify this tennis question into ONE category:
-- search_itf: General tennis rules, ITF rules, scoring, court, serve, equipment
-- search_gs: Grand Slam specific questions (Wimbledon, US Open, etc.)
-- refuse: Not about tennis rules (history, results, players)
+    system_prompt = """
+    You are a helpful AI assistant for a tennis application. 
 
-Question: "{question}"
+    Your task is to classify the user question into ONE category.  You have 4 categories to choose from: 
+    1. search_itf: General tennis rules, ITF rules, scoring, court, serve, equipment...
+    2. search_gs: Grand Slam specific questions (Wimbeldon, US Open, French Open, Australian Open)
+    3. compare: To compare the tennis rules between ITF and Grand Slam. This is used when the answer is present in both documents, and the user did not specify the category to answer from. 
+    4. refuse: The user must ask a question about tennis rules only: ITF and/or Grand Slam. 
 
-Return ONLY the category name, nothing else.
-""")
+    The user is not allowed to : 
+    1. Ask questions anything else about tennis rules. 
+    2. Ask questions about the winners, names of players, comparisons between players, or history of tournaments.
+
+    Your output should be in a structured json format like so. Each key is a string and each value is a string. Make sure to follow the format exactly:
+    {{
+        "chain of thought": "go over each of the categories above and write some of your thoughts about what category is this input relevant to.",
+        "decision": "search_itf OR search_gs OR compare OR refus. Pick one of those, and only write the word."
+    }}
+
+    INPUT: {question}
+    OUTPUT: 
+    """
+    prompt = ChatPromptTemplate.from_template(system_prompt)
     
     llm = ChatGroq(
         model=CLASSIF_MODEL,
         temperature=0,
         api_key=API_KEY,
-        max_tokens=10
+        max_tokens=1024
     )
     
     chain = prompt | llm | StrOutputParser()
     result = chain.invoke({"question": question}).strip().lower()
-    
-    valid = ["search_itf", "search_gs", "refuse"]
-    return result if result in valid else "search_itf"
+
+    result = json.loads(result)
+    decision = result.get("decision")
+    return decision 
 
 
 # ============================================================
-# TOOL CALLING (Explicit Python functions, not @tool)
+# TOOL CALLING 
 # ============================================================
 
 def _extract_search_query(question: str) -> str:
     """Extract the best search query from a natural language question."""
-    extract_prompt = ChatPromptTemplate.from_template("""You convert tennis questions into short search queries.
+    prompt = """
+    You are a helpful AI assistant for a tennis application. 
 
-ONLY output the search query. NO explanation. NO prefix. NO "Search query:".
-Just the keywords, 5-10 words including specific terminology.
+    Your task is to convert the tennis questions into short search queries. 
 
-Question: How many sets in a men's Grand Slam match?
-number of sets best of five men singles match
+    RULES:
+    1. Output ONLY the search query. 
+    2. Use ONLY keywords, 5-10 words maximum including specific terminology.
+    3. Do not explain anything. 
+    4. Do not add prefix.
+    5. Do not add "Search query:".
 
-Question: Can a player receive coaching during a match?
-coaching during match prohibited rules
+    EXAMPLES:
+    1. 
+    Question: How many sets in a men's Grand Slam match?
+    Output: number of sets in men's Grand Slam match.
 
-Question: What's the tie-break rule?
-tie-break game scoring seven points margin
+    2. 
+    Question: Can a player receive coaching during a match?
+    Output: coaching during match prohibited rules
 
-Question: What is the warm-up time?
-warm-up time duration five minutes before match starts
+    3. 
+    Question: What's the tie-break rule?
+    Output: tie-break rule
 
-Question: What does the rulebook say about warm-up?
-warm-up duration time before match starts
+    4. 
+    Question: What is the warm-up time?
+    Output: warm-up time
 
-Question: What are the coaching rules?
-coaching during match permitted prohibited
+    5. 
+    Question: What does the rulebook say about warm-up?
+    Output: warm-up duration time before match starts
 
-Question: {question}
-""")
+    6. 
+    Question: What are the coaching rules?
+    Output: coaching during match permitted prohibited
+
+
+    INPUT: {question}
+    Output: 
+    """
+    extract_prompt = ChatPromptTemplate.from_template(prompt)
     
     llm = ChatGroq(
         model=CLASSIF_MODEL,
         temperature=0,
         api_key=API_KEY,
-        max_tokens=30,
-        stop=["\n\n", "Question:"]
+        max_tokens=128,
     )
     
     chain = extract_prompt | llm | StrOutputParser()
     result = chain.invoke({"question": question}).strip()
-    
-    cleanup_prefixes = [
-        "search query:", "query:", "answer:", "based on", 
-        "the best search query", "i'll provide", "to convert"
-    ]
-    result_lower = result.lower()
-    for prefix in cleanup_prefixes:
-        if result_lower.startswith(prefix):
-            return question
     
     return result
 
 def search_itf(question: str) -> str:
     """Search ITF Rules with query optimization."""
     query = _extract_search_query(question)
-    print(f"   🔍 Extracted query: '{query}'")  # For debugging
+    print(f"   Extracted query: '{query}'")  # For debugging
     
-    results = search_similar_chunks(query, top_k=4, document_filter="ITF Rules")
+    results = search_similar_chunks(query, top_k=5, document_filter="ITF Rules")
     if not results:
         return "No relevant rules found in ITF Rules."
     
@@ -156,9 +160,9 @@ def search_itf(question: str) -> str:
 def search_gs(question: str) -> str:
     """Search Grand Slam Rules with query optimization."""
     query = _extract_search_query(question)
-    print(f"   🔍 Extracted query: '{query}'")
+    print(f"   Extracted query: '{query}'")
     
-    results = search_similar_chunks(query, top_k=4, document_filter="Grand Slam Rules")
+    results = search_similar_chunks(query, top_k=5, document_filter="Grand Slam Rules")
     if not results:
         return "No relevant rules found in Grand Slam Rulebook."
     
@@ -172,57 +176,81 @@ def search_gs(question: str) -> str:
 
 def compare_rules(question: str) -> str:
     """Compare topic between both rulebooks."""
-    topic_prompt = ChatPromptTemplate.from_template("""Extract ONLY the topic keywords from this comparison question.
-NO explanation. NO prefix. NO list. Just a single 2-5 word phrase.
+    prompt = """
+    You are a helpful AI assistant for a tennis application. 
 
-Question: Compare the warm-up time between ITF and Grand Slam
-warm-up time duration
+    Your task is to extract ONLY the topic keywords from this comparison question.
 
-Question: How do the coaching rules differ between rulebooks?
-coaching rules during match
+    RULES:
+    1. Output ONLY the topic's keyword. 
+    2. Use ONLY keywords, 5-10 words maximum including specific terminology.
+    3. Do not explain anything. 
+    4. Do not add prefix.
+    5. Do not add "Topic Keyword:".
 
-Question: What's the difference in medical timeouts?
-medical timeout
+    EXAMPLES:
+    1. 
+    Question: How many sets in a men's Grand Slam match?
+    Output: number of sets
 
-Question: Compare the tie-break format
-tie-break game format
+    2. 
+    Question: Can a player receive coaching during a match?
+    Output: coaching during match prohibited rules
 
-Question: {question}
-""")
+    3. 
+    Question: What's the tie-break rule?
+    Output: tie-break rule
+
+    4. 
+    Question: What is the warm-up time?
+    Output: warm-up time
+
+    5. 
+    Question: What does the rulebook say about warm-up?
+    Output: warm-up duration time before match starts
+
+    6. 
+    Question: What are the coaching rules?
+    Output: coaching during match permitted prohibited
+
+    7. 
+    Question: What's the difference in medical timeouts?
+    Output: medical timeout
+
+
+    INPUT: {question}
+    Output: 
+    """
+    topic_prompt = ChatPromptTemplate.from_template(prompt)
     
     llm = ChatGroq(
         model=CLASSIF_MODEL,
         temperature=0,
         api_key=API_KEY,
-        max_tokens=15,
-        stop=["\n\n", "Question:", "1.", "2."]
+        max_tokens=128,
     )
     
     chain = topic_prompt | llm | StrOutputParser()
     topic = chain.invoke({"question": question}).strip()
     
-    # Defensive: if topic looks like a list, fall back
-    if topic.startswith(("1.", "2.", "-", "*")) or "\n" in topic:
-        # Extract clean topic from the question itself
-        topic = question.lower().replace("compare", "").replace("the", "").replace("between itf and grand slam", "").replace("difference", "").strip()
     
-    print(f"   🔍 Extracted topic: '{topic}'")
+    print(f"   Extracted topic: '{topic}'")
     
-    itf_results = search_similar_chunks(topic, top_k=3, document_filter="ITF Rules")
-    gs_results = search_similar_chunks(topic, top_k=3, document_filter="Grand Slam Rules")
+    itf_results = search_similar_chunks(topic, top_k=5, document_filter="ITF Rules")
+    gs_results = search_similar_chunks(topic, top_k=5, document_filter="Grand Slam Rules")
     
     output = [f"Comparison of '{topic}':\n"]
     output.append("=== ITF Rules ===")
     if itf_results:
         for r in itf_results:
-            output.append(f"[Page {r['page']}]\n{r['content'][:400]}...")
+            output.append(f"[Page {r['page']}]\n{r['content']}...")
     else:
         output.append("No content found.")
     
     output.append("\n=== Grand Slam Rules ===")
     if gs_results:
         for r in gs_results:
-            output.append(f"[Page {r['page']}]\n{r['content'][:400]}...")
+            output.append(f"[Page {r['page']}]\n{r['content']}...")
     else:
         output.append("No content found.")
     
@@ -236,28 +264,30 @@ def synthesize_answer(question: str, context: str) -> str:
     """
     Use LLM to synthesize a clear answer from retrieved context.
     """
-    prompt = ChatPromptTemplate.from_template("""
-You are a tennis rules expert. Answer the user's question based ONLY on the provided context.
+    system_prompt = """
+    You are a tennis rules expert. 
 
-Context:
-{context}
+    Your task is to answer the user's question based ONLY on the provided context. 
 
-Question: {question}
+    CONTEXT:
+    {context}
 
-Instructions:
-- Answer concisely and directly
-- Always cite your source as: "Source: [Document], page [X]"
-- If the context doesn't contain the answer, say: "I cannot find this information in the rulebooks."
-- Do not use outside knowledge
+    RULES:
+    1. Answer concisely and directly.
+    2. Always cite your source as: "Source: [Document], page [X]"
+    3. If the context doesn't contain the answer, say: "I cannot find this information in the rulebooks."
+    4. Do not use outside knowledge.
 
-Answer:
-""")
+    INPUT: {question}
+    Output: 
+    """
+    prompt = ChatPromptTemplate.from_template(system_prompt)
     
     llm = ChatGroq(
         model=GROQ_MODEL,  # Big model for quality synthesis
         temperature=0.1,
         api_key=API_KEY,
-        max_tokens=512
+        max_tokens=1024
     )
     
     chain = prompt | llm | StrOutputParser()

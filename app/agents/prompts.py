@@ -5,7 +5,9 @@ Prompt templates for the Tennis Rules Agent.
 # ============================================================
 # AGENT SYSTEM PROMPT
 # ============================================================
-AGENT_SYSTEM_PROMPT = """You are a helpful tennis rules assistant.
+AGENT_SYSTEM_PROMPT = """
+
+You are a helpful tennis rules assistant.
 
 You have access to two official tennis rulebooks via search tools:
 - ITF Rules of Tennis (general rules of the sport)
