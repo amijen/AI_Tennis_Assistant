@@ -16,7 +16,7 @@ dotenv.load_dotenv()
 MODEL_NAME = os.getenv("MODEL_NAME")
 print(f"Loading embedding model: {MODEL_NAME}")
 _model = SentenceTransformer(MODEL_NAME)
-print(f"Model loaded (dimension: {_model.get_sentence_embedding_dimension()})")
+print(f"Model loaded (dimension: {_model.get_embedding_dimension()})")
 
 def embed_text(text: str) -> list[float]:
     """
@@ -29,7 +29,7 @@ def embed_text(text: str) -> list[float]:
         A list of 768 floats representing the embedding.
     """
 
-    if not text or not text.strip():
+    if not text or len(text)==0:
         raise ValueError("Cannot embed empty text.")
     
     # The model returns a numpy array -> convert to list for pgvector compatability
