@@ -1,8 +1,5 @@
-from langchain.tools import tool
 from app.db.retriever import search_similar_chunks
-from app.agents.prompts import RETRIEVAL_TOOL_DESCRIPTION
 
-@tool("search_rules", description = RETRIEVAL_TOOL_DESCRIPTION)
 def search_rules(query: str, document: str="") -> str:
     """
     Search the tennis rulebooks for relevant excerpts. 
