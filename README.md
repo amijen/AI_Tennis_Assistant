@@ -1,73 +1,141 @@
 # 🎾 Tennis Rules AI Advisor
 
-An **agentic RAG (Retrieval-Augmented Generation) system** that answers questions about tennis rules by intelligently retrieving and comparing information from the official **ITF Rules of Tennis** and the **Grand Slam Rulebook**.
+An **agentic RAG (Retrieval-Augmented Generation) system** that answers questions about tennis rules by intelligently retrieving, self-evaluating, and synthesizing information from the official **ITF Rules of Tennis** and the **Grand Slam Rulebook**.
 
 ## 🧠 Project Overview
-This project demonstrates an end-to-end **Agentic AI architecture** where an LLM-powered agent autonomously decides which tool to use to answer user questions:
 
-- 🔍 **Retrieval Tools** — Semantic search over the ITF and Grand Slam rulebooks (separate tools per document for precise filtering)
-- ⚖️ **Compare Tool** — Side-by-side comparison of rules between ITF and Grand Slam
-- 🏷️ **Intent Classifier** — Routes the question to the appropriate tool (`search_itf`, `search_gs`, `compare`, or `refuse`)
-- 🛡️ **Out-of-Scope Guard** — Refuses questions outside the rulebooks (e.g., tournament results, player history)
+This project implements a **LangGraph-based agentic pipeline** with self-correction capabilities. Unlike a simple RAG pipeline, the agent can **evaluate its own retrieval quality** and **reformulate queries** when the initial search returns irrelevant results.
+
+Key capabilities:
+
+- 🔍 **Parent-Child Retrieval** — Semantic search over small child chunks, returning full parent rule context
+- 🧠 **Self-Grading** — The agent evaluates whether retrieved excerpts actually answer the question
+- 🔄 **Self-Correction** — If retrieval is poor, the agent reformulates the query and retries automatically
+- 💬 **Multi-Turn Memory** — Remembers conversation history and resolves follow-up references
+- ⚡ **Token Streaming** — Real-time word-by-word response via Server-Sent Events
+- 🏷️ **Smart Routing** — Keyword-based routing to ITF, Grand Slam, or both rulebooks
+- 🛡️ **Source Grounding** — All answers cite exact document names and page numbers
 
 ## 🏗️ Architecture
 
-The agent uses a **Controlled Router pattern** instead of fully autonomous tool-calling for higher reliability with open-source LLMs:
+```
+User Question + Thread ID
+        │
+        ▼
+┌──────────────────────┐
+│ ROUTE & CONTEXTUALIZE│  Keyword routing + standalone query resolution
+└──────────┬───────────┘
+           ▼
+┌──────────────────────┐
+│      RETRIEVE        │  Parent-child vector search (pgvector HNSW)
+└──────────┬───────────┘
+           ▼
+┌──────────────────────┐     irrelevant + retry <= 2
+│       GRADE          │──────────────────────────┐
+│  (similarity gate    │                          ▼
+│   + LLM fallback)    │                   ┌─────────────┐
+└──────────┬───────────┘                   │ REFORMULATE │
+           │ relevant                      │   (LLM)     │
+           ▼                               └──────┬──────┘
+┌──────────────────────┐                          │
+│     SYNTHESIZE       │◄─────────────────────────┘
+│  (LLM + citations)   │
+└──────────┬───────────┘
+           ▼
+   Save to MemorySaver → Stream to Frontend
+```
 
-```
-User Question
-     ↓
-1. Intent Classification (LLM + keyword heuristics)
-     ↓
-2. Python Routing (deterministic if/elif)
-     ↓
-3. Tool Execution (search_itf | search_gs | compare_rules | refuse)
-     ↓
-4. Answer Synthesis (LLM with strict grounding to retrieved chunks)
-     ↓
-Final Answer + Source Citation (Document, page X)
-```
+### What Makes This Agentic?
+
+| Component             | Agentic? | Description                                      |
+|-----------------------|----------|--------------------------------------------------|
+| Route & Contextualize | Partial  | Resolves follow-up references using chat history |
+| Retrieve              | No       | Deterministic vector search                      |
+| Grade                 | **Yes**  | LLM evaluates its own retrieval quality          |
+| Reformulate           | **Yes**  | LLM rewrites the query for better results        |
+| Conditional Edge      | **Yes**  | Graph decides whether to retry or proceed        |
+| Synthesize            | No       | Standard RAG generation                          |
 
 ## 📂 Project Structure
+
 ```
 TENNIS/
 ├── app/
-│   └──├── db/                  # Database, schema, retriever
-│      ├── ingestion/           # PDF loader, splitter, embedder
-│      ├── agent/               # LangChain router & tools
-│      └── main.py              # FastAPI entry point
-├── scripts/
 │   ├── __init__.py
-│   └── ingest.py               # Ingestion pipeline
+│   ├── config.py                 # Centralized env config (pydantic-settings)
+│   ├── main.py                   # FastAPI app + lifespan + static serving
+│   │
+│   ├── api/                      # HTTP layer
+│   │   ├── __init__.py
+│   │   ├── routes.py             # POST /ask, POST /ask/stream, GET /health
+│   │   └── schemas.py            # Pydantic request/response models
+│   │
+│   ├── graph/                    # LangGraph agentic pipeline
+│   │   ├── __init__.py
+│   │   ├── state.py              # AgentState TypedDict
+│   │   ├── nodes.py              # Node functions (route, retrieve, grade, synthesize)
+│   │   ├── tools.py              # Search + formatting utilities
+│   │   ├── prompts.py            # All LLM prompts
+│   │   └── builder.py            # StateGraph construction + MemorySaver
+│   │
+│   ├── db/                       # PostgreSQL + pgvector
+│   │   ├── __init__.py
+│   │   ├── database.py           # Engine + session factory
+│   │   ├── insert.py             # Idempotent document/chunk insertion
+│   │   ├── retriever.py          # Parent-child vector similarity search
+│   │   └── schema.sql            # Tables + HNSW index
+│   │
+│   └── ingestion/                # PDF → Database pipeline
+│       ├── __init__.py
+│       ├── loader.py             # PyPDF page extraction
+│       ├── splitter.py           # Parent-child regex splitting
+│       └── embedder.py           # BGE embedding (local CPU)
+│
+├── scripts/
+│   ├── ingest.py                 # python scripts/ingest.py
+│   ├── evaluate.py               # python scripts/evaluate.py
+│   └── list_models.py            # List available Groq models
+│
 ├── data/
-│   ├── raw/                    # Source PDFs
-│   └── processed/
-├── frontend/                   # React UI 
+│   ├── raw/                      # Source PDFs
+│   └── eval/
+│       └── test_set.json         # Golden evaluation dataset
+│
+├── frontend/
+│   └── index.html                # Single-file chat UI (no build step)
+│
+├── tests/
+│   ├── test_config.py
+│   ├── test_retriever.py
+│   └── test_graph.py
+│
+├── .env                          # Secrets (gitignored)
+├── .env.example                  # Template
 ├── requirements.txt
-├── Dockerfile                  # Backend image
-├── docker-compose.yml          # Full stack orchestration
-└── README.md                   # You are here ! 
+├── Dockerfile
+├── docker-compose.yml
+├── LICENSE
+└── README.md
 ```
+
 ## ⚙️ Tech Stack
 
-| Layer            | Technology                                              |
-|------------------|---------------------------------------------------------|
-| LLM Orchestration| LangChain (LCEL chains)                                 |
-| LLM (synthesis)  | Groq — `llama-3.3-70b-versatile`                        |
-| LLM (classifier) | Groq — `llama-3.1-8b-instant`                           |
-| Embeddings       | HuggingFace — `BAAI/bge-base-en-v1.5` (768 dims)        |
-| Vector Database  | PostgreSQL + pgvector                                   |
-| Backend API      | FastAPI                                                 |
-| Frontend         | React                                                   |
-| PDF Parsing      | PyPDF                                                   |
-| Chunking         | Parent-child strategy with regex-based structure        |
-| Deployment       | Docker + Docker Compose                                 |
+| Layer           | Technology                                                       |
+|-----------------|------------------------------------------------------------------|
+| Agent Framework | **LangGraph** (StateGraph + MemorySaver checkpointer)            |
+| LLM             | **Groq** — `openai/gpt-oss-20b`                                  |
+| Embeddings      | **HuggingFace** — `BAAI/bge-base-en-v1.5` (768 dims, local CPU)  |
+| Vector Database | **PostgreSQL 15+** + **pgvector** (HNSW index)                   |
+| Backend API     | **FastAPI** (sync + async streaming via SSE)                     |
+| Frontend        | **Vanilla HTML/JS** (zero dependencies, served by FastAPI)       |
+| PDF Parsing     | **PyPDF**                                                        |
+| Chunking        | Parent-child strategy with regex-based structural splitting      |
+| Config          | **pydantic-settings** (typed, validated, single source of truth) |
+| Deployment      | **Docker** + **Docker Compose**                                  |
 
 ## 🚀 Getting Started
 
-You can run this project in two ways: **with Docker (recommended)** or **manually for development**.
-
-### Option 1 — Run with Docker (one command, easiest)
+### Option 1 — Run with Docker (Recommended)
 
 #### 1. Prerequisites
 - [Docker Desktop](https://www.docker.com/products/docker-desktop) installed and running
@@ -80,150 +148,107 @@ cd tennis
 ```
 
 #### 3. Configure Environment Variables
-Create a `.env` file at the project root:
+Copy the template and fill in your values:
+```bash
+cp .env.example .env
+```
+
 ```env
-DB_URL="postgresql://postgres:<your_password>@localhost:5432/tennis"
-MODEL_NAME = "BAAI/bge-base-en-v1.5"
 GROQ_API_KEY=gsk_your_key_here
-GROQ_MODEL=llama-3.3-70b-versatile
-CLASSIF_MODEL=llama-3.1-8b-instant
+GROQ_MODEL=openai/gpt-oss-20b
+EMBEDDING_MODEL=BAAI/bge-base-en-v1.5
+DATABASE_URL=postgresql://postgres:<your_password>@db:5432/tennis_db
+CORS_ORIGINS=http://localhost:3000,http://localhost:5173,http://localhost:8000
+APP_ENV=development
 ```
 
-#### 4. ⚠️ Set Your PostgreSQL Password
-Open `docker-compose.yml` and **replace `<your-password>`** in both places with the same password of your choice:
-
-```yaml
-# In the db service:
-POSTGRES_PASSWORD: <your-password>     # ← change this
-
-# In the backend service:
-DB_URL: postgresql://postgres:<your-password>@db:5432/tennis   # ← and this (same value!)
-```
-
-⚠️ **Both passwords MUST match**, otherwise the backend cannot connect to the database.
-
-#### 5. Place PDFs
+#### 4. Place PDFs
 Download the official rulebooks and place them in `data/raw/`:
 - `2026-rules-of-tennis-english.pdf`
 - `grand-slam-rulebook-2026-f2.pdf`
 
-#### 6. Build and Launch
+#### 5. Build and Launch
 ```bash
 docker-compose up --build
 ```
 
-The first build takes 5–10 minutes (downloading images, building containers, ingesting documents). Then:
-- 🌐 **Frontend** → http://localhost
-- ⚡ **Backend API** → http://localhost:8000
+Then:
+- 🌐 **Chat UI** → http://localhost:8000
 - 📘 **API Docs** → http://localhost:8000/docs
+- ❤️ **Health Check** → http://localhost:8000/api/health
 
-To stop: `docker-compose down`  
+To stop: `docker-compose down`
 To reset everything (wipe DB): `docker-compose down -v`
 
 ---
 
-### Option 2 — Run Manually (for development)
+### Option 2 — Run Manually (Development)
 
 #### 1. Prerequisites
-- Python 3.10+
-- PostgreSQL 14+ with [`pgvector`](https://github.com/pgvector/pgvector) extension
-- Node.js 18+ (for the frontend)
+- Python 3.14
+- PostgreSQL 15+ with [`pgvector`](https://github.com/pgvector/pgvector) extension
 - A free [Groq API key](https://console.groq.com)
 
-#### 2. Clone the Repository
+#### 2. Clone & Setup
 ```bash
 git clone https://github.com/amijen/AI_Tennis_Assistant.git
 cd tennis
-```
 
-#### 3. Setup Python Environment
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+python -m venv .venv
+source .venv/bin/activate        # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-#### 4. Configure Environment Variables
-Create a `.env` file at the project root:
-```env
-DB_URL="postgresql://postgres:<your_password>@localhost:5432/tennis"
-MODEL_NAME = "BAAI/bge-base-en-v1.5"
-GROQ_API_KEY=gsk_your_key_here
-GROQ_MODEL=llama-3.3-70b-versatile
-CLASSIF_MODEL=llama-3.1-8b-instant
-```
-
-#### 5. Setup PostgreSQL Database
+#### 3. Configure
 ```bash
-# Create the database
-createdb tennis
-
-# Apply the schema
-psql -d tennis -f app/db/schema.sql
+cp .env.example .env
+# Edit .env with your Groq API key and database credentials
 ```
 
-#### 6. Place PDFs
-Download the official rulebooks and place them in `data/raw/`:
-- `2026-rules-of-tennis-english.pdf`
-- `grand-slam-rulebook-2026-f2.pdf`
-
-#### 7. Run the Ingestion Pipeline
+#### 4. Setup Database
 ```bash
-python -m scripts.ingest
+psql -U postgres -c "CREATE DATABASE tennis_db;"
+psql -U postgres -d tennis_db -f app/db/schema.sql
 ```
 
-This parses the PDFs, splits them into parent-child chunks, generates embeddings with `BAAI/bge-base-en-v1.5`, and stores everything in PostgreSQL.
+#### 5. Place PDFs in `data/raw/`
 
-#### 8. Test the Agent
+#### 6. Ingest Documents
 ```bash
-python -m scripts.test_agent
+python scripts/ingest.py
 ```
 
-#### 9. Start the API
+This parses the PDFs, splits them into parent-child chunks, generates 768-dim embeddings locally, and stores everything in PostgreSQL. The pipeline is **idempotent** — running it again safely replaces old data.
+
+#### 7. Run the Server
 ```bash
 uvicorn app.main:app --reload
 ```
 
-#### 10. Start the Frontend
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-Visit http://localhost:5173 to use the chat UI.
-
+Open **http://localhost:8000** in your browser. That's it — the chat UI is served directly by FastAPI.
 
 ## 🛣️ Roadmap
 
-- [x] Data ingestion pipeline (PyPDF loader, parent-child splitter, HuggingFace embedder)
-- [x] Vector database with pgvector + parent-child retrieval
-- [x] Controlled router agent with 4 tools (search_itf, search_gs, compare, refuse)
-- [x] LLM-powered query/topic extraction with defensive cleanup
+- [x] Data ingestion pipeline (PyPDF loader, parent-child splitter, BGE embedder)
+- [x] Vector database with pgvector + HNSW index + parent-child retrieval
+- [x] LangGraph agentic pipeline with self-grading and self-correction
+- [x] Keyword-based smart routing (ITF / Grand Slam / Both)
+- [x] Multi-turn conversation memory (MemorySaver checkpointer)
+- [x] Contextual query resolution for follow-up questions
 - [x] Source-grounded answers with real page citations
-- [x] FastAPI backend
-- [x] React frontend
+- [x] SSE token streaming to frontend
+- [x] FastAPI backend with async support
+- [x] Single-file chat UI with step indicators
+- [x] Centralized config with pydantic-settings
+- [x] Idempotent ingestion pipeline
+- [x] Evaluation framework with golden test set
 - [x] Docker deployment
-- [ ] Conversation memory (multi-turn dialogues)
-- [ ] Prompt refinement and evaluation framework
-- [ ] Re-ranking with cross-encoder for better retrieval
-- [ ] Hybrid search (semantic + BM25 keyword)
-
-## 📚 Learning Goals
-
-Key concepts explored:
-
-- Agentic AI architectures with LangChain
-- Retrieval-Augmented Generation (RAG) with parent-child chunking
-- Vector similarity search with pgvector
-- Cloud LLM inference with Groq
-- Local embedding inference with HuggingFace `sentence-transformers`
-- LangChain Expression Language (LCEL) chains
-- Right-sizing models per task (small for classification, large for synthesis)
-- Anti-hallucination patterns (source grounding, refusal escape hatch)
-- Containerized full-stack deployment with Docker Compose
-- Full-stack AI application development
 
 ## 🙏 Acknowledgements
 
-Inspired by [RagUltimateAdvisor](https://github.com/dev-it-with-me/RagUltimateAdvisor).
+- [ITF Rules of Tennis 2026](https://www.itftennis.com) — Official rulebook
+- [Grand Slam Rulebook 2026](https://www.grandslam.com) — Official rulebook
+- [LangGraph](https://langchain-ai.github.io/langgraph/) — Agent orchestration framework
+- [Groq](https://groq.com) — Fast open-source LLM inference
+- [pgvector](https://github.com/pgvector/pgvector) — Vector similarity search for PostgreSQL
+- Inspired by [RagUltimateAdvisor](https://github.com/dev-it-with-me/RagUltimateAdvisor)
