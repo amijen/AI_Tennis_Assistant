@@ -2,6 +2,8 @@
 __pycache__/
 *.pyc
 *.pyo
+uv.lock
+pyproject.toml
 
 # Virtual env
 venv/

@@ -15,3 +15,4 @@ sentence-transformers
 torch
 fastapi
 uvicorn
+pydantic_settings
