@@ -9,13 +9,10 @@ This model:
 
 from sentence_transformers import SentenceTransformer
 
-import os 
-import dotenv
-dotenv.load_dotenv()
+from app.config import settings
 
-MODEL_NAME = os.getenv("MODEL_NAME")
-print(f"Loading embedding model: {MODEL_NAME}")
-_model = SentenceTransformer(MODEL_NAME)
+print(f"Loading embedding model: {settings.embedding_model}")
+_model = SentenceTransformer(settings.embedding_model)
 print(f"Model loaded (dimension: {_model.get_embedding_dimension()})")
 
 def embed_text(text: str) -> list[float]:
