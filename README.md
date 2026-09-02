@@ -158,6 +158,9 @@ GROQ_API_KEY=gsk_your_key_here
 GROQ_MODEL=openai/gpt-oss-20b
 EMBEDDING_MODEL=BAAI/bge-base-en-v1.5
 DATABASE_URL=postgresql://postgres:<your_password>@db:5432/tennis_db
+POSTGRES_USER=<your_postgres_user>
+POSTGRES_PASSWORD=<your_password>
+POSTGRES_DB=tennis_db
 CORS_ORIGINS=http://localhost:3000,http://localhost:5173,http://localhost:8000
 APP_ENV=development
 ```
