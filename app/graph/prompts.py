@@ -1,5 +1,22 @@
 # ============================================================
-# 1. RETRIEVAL GRADING
+# 1. CONTEXTUALIZE / STANDALONE QUERY GENERATION
+# ============================================================
+
+CONTEXTUALIZE_PROMPT = """
+Given a chat history and the latest user question which might reference context in the chat history, formulate a standalone question which can be understood without the chat history.
+
+DO NOT answer the question. Just reformulate it if needed, otherwise return it as-is.
+
+CHAT HISTORY:
+{chat_history}
+
+USER QUESTION: {question}
+
+STANDALONE QUESTION:
+"""
+
+# ============================================================
+# . RETRIEVAL GRADING
 # ============================================================
 
 GRADE_PROMPT = """
@@ -20,7 +37,7 @@ Respond with ONLY one word: relevant or irrelevant.
 """
 
 # ============================================================
-# 2. QUERY REFORMULATION
+# 3. QUERY REFORMULATION
 # ============================================================
 
 REFORMULATE_PROMPT = """
@@ -40,29 +57,30 @@ REFORMULATED QUESTION:
 """
 
 # ============================================================
-# 3. ANSWER SYNTHESIS
+# 4. ANSWER SYNTHESIS
 # ============================================================
 
 SYNTHESIS_PROMPT = """
-You are a tennis rules expert. Answer the user's question using ONLY the provided context.
+You are an official tennis rules expert. Answer the user's question using ONLY the provided context and conversation history.
+
+CONVERSATION HISTORY:
+{chat_history}
 
 CONTEXT:
 {context}
 
 RULES:
-1. Answer directly and clearly.
-2. Use ONLY the provided context — no outside knowledge.
-3. If both ITF and Grand Slam excerpts are present, mention both and highlight any differences.
-4. Always cite sources exactly as: "Source: [Document Name], page [X]"
-5. Never write generic placeholders like [Document] or [X]. Use the actual values.
-6. If the context does not contain enough information to fully answer, say so honestly and provide what you can.
+1. Answer directly and clearly based on the context.
+2. If both ITF and Grand Slam excerpts are present, mention both and highlight any differences.
+3. Always cite sources exactly as: "Source: [Document Name], page [X]"
+4. If the context does not contain enough info, state that clearly without guessing.
 
 QUESTION: {question}
 ANSWER:
 """
 
 # ============================================================
-# 4. NO RESULTS FALLBACK
+# 5. NO RESULTS FALLBACK
 # ============================================================
 
 NO_RESULTS_ANSWER = (

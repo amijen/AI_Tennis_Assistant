@@ -2,15 +2,19 @@ from typing import TypedDict
 
 class AgentState(TypedDict):
     # Input 
-    question: str
+    question: str # Current user input 
+    standalone_question: str # Rewritten standalone query incorporating history 
+    chat_history: list[dict] #Past turns : [{"role": "user"|"assistant", "content": "..."}]
 
     # Routing 
     document_filter: str | None # "ITF Rules", "Grand Slam Rules", or None (both)
 
     # Retrieval 
+    reformulated_query: str
     retrieved_context: str # Formatted chunks from the database
     retrieval_grade: str   # "relevant" or "irrelevant" (set by grade node)
-    retry_count: int       # How many times we've re-retrieved (max 1)
+    retry_count: int       # How many times we've re-retrieved (max 2)
+    top_similarity: float
 
     # Output 
     answer: str            # Final synthesized answer 
@@ -25,6 +29,8 @@ def initial_state(question: str) -> AgentState:
     """
     return {
         "question": question,
+        "standalone_question": question,
+        "chat_history": [],
         "document_filter": None,
         "reformulated_query": "",
         "retrieved_context": "",

@@ -1,5 +1,6 @@
 import logging 
 from langgraph.graph import StateGraph, START, END
+from langgraph.checkpoint.memory import MemorySaver
 
 from app.graph.state import AgentState
 from app.graph.nodes import (
@@ -62,9 +63,10 @@ def build_graph() -> StateGraph:
     # synthesize → END
     graph.add_edge("synthesize", END)
 
-    # Compile 
-    compiled = graph.compile()
-    logger.info("Agent graph compiled successfully")
+    # Enable checkpointer for thread-level state retention
+    memory = MemorySaver()
+    compiled = graph.compile(checkpointer=memory)
+    logger.info("Agent graph compiled with MemorySaver checkpointer")
 
     return compiled
 

@@ -42,12 +42,12 @@ def health():
 
 @router.post("/ask", response_model=AskResponse)
 def ask(payload: AskRequest):
-    """
-    Run the full agent graph and return the complete answer.
-    Use this for testing, scripts, or non-streaming clients.
-    """
     try:
-        result = agent_graph.invoke(initial_state(payload.question))
+        config = {"configurable": {"thread_id": payload.conversation_id}}
+        result = agent_graph.invoke(
+            {"question": payload.question},
+            config=config,
+        )
     except Exception as exc:
         logger.exception("Agent graph failed")
         raise HTTPException(status_code=500, detail=f"Agent error: {exc}")
@@ -57,7 +57,6 @@ def ask(payload: AskRequest):
         document_filter=result.get("document_filter"),
         steps=result.get("steps", []),
     )
-
 
 # ============================================================
 # ASK STREAM (Server-Sent Events)
@@ -70,45 +69,29 @@ def _sse(event: str, data: dict) -> str:
 
 @router.post("/ask/stream")
 async def ask_stream(payload: AskRequest):
-    """
-    Stream the agent's progress and answer tokens via SSE.
-
-    Event types emitted:
-      - step   : a graph node finished  {"node": "...", "info": {...}}
-      - token  : one chunk of the answer {"text": "..."}
-      - done   : stream finished         {"document_filter": "..."}
-      - error  : something broke         {"message": "..."}
-    """
-
     async def event_generator():
         doc_filter = None
+        config = {"configurable": {"thread_id": payload.conversation_id}}
         try:
             async for mode, chunk in agent_graph.astream(
-                initial_state(payload.question),
+                {"question": payload.question},
+                config=config,
                 stream_mode=["updates", "messages"],
             ):
-                # ── Node completion events ────────────────
                 if mode == "updates":
                     for node_name, node_output in chunk.items():
                         if not isinstance(node_output, dict):
                             continue
-
                         if node_output.get("document_filter") is not None:
                             doc_filter = node_output["document_filter"]
-
                         info = {
-                            k: v
-                            for k, v in node_output.items()
-                            if k in ("document_filter", "retrieval_grade",
-                                     "top_similarity", "reformulated_query")
+                            k: v for k, v in node_output.items()
+                            if k in ("document_filter", "retrieval_grade", "top_similarity", "standalone_question")
                         }
                         yield _sse("step", {"node": node_name, "info": info})
 
-                # ── LLM token events ──────────────────────
                 elif mode == "messages":
                     message, metadata = chunk
-                    # Only stream tokens from the synthesis node —
-                    # grading/reformulation output is internal noise.
                     if metadata.get("langgraph_node") != "synthesize":
                         continue
                     token = getattr(message, "content", "")
@@ -127,6 +110,6 @@ async def ask_stream(payload: AskRequest):
         headers={
             "Cache-Control": "no-cache",
             "Connection": "keep-alive",
-            "X-Accel-Buffering": "no",   # disable nginx buffering
+            "X-Accel-Buffering": "no",
         },
     )

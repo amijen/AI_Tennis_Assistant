@@ -16,6 +16,11 @@ class AskRequest(BaseModel):
         examples=["How does the tie-break work?"],
     )
 
+    conversation_id: str = Field(
+        default="default",
+        description="Session/Thread ID for maintaining conversation memory",
+    )
+
 
 class Source(BaseModel):
     """A cited rulebook excerpt."""
