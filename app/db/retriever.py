@@ -28,7 +28,10 @@ def search_similar_chunks(
     Returns:
         List of dicts with parent content, page, document, similarity score.
     """
-    # Embed the query (using same model as ingestion)
+    if not query or not query.strip():
+        return []
+    
+    # Embed the query using BGE
     query_embedding = embed_text(query)
 
     # Build SQL
@@ -70,6 +73,7 @@ def search_similar_chunks(
         "top_k": top_k,
         "min_similarity": min_similarity,      
     }
+    
     if document_filter:
         document_filter_clause = "WHERE d.name = :document_filter"
         params["document_filter"] = document_filter
