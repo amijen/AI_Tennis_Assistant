@@ -19,7 +19,8 @@ llm = ChatGroq(
     model = settings.groq_model,
     temperature = 0,
     api_key = settings.groq_api_key,
-    max_tokens = 1024
+    max_tokens = 1024,
+    streaming=True, 
 )
 
 # ============================================================

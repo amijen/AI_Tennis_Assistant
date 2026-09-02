@@ -17,3 +17,20 @@ class AgentState(TypedDict):
 
     # Debugging 
     steps: list[dict]      # Log of what happened at each step
+
+def initial_state(question: str) -> AgentState:
+    """
+    Build a fresh state dict for a new question.
+    Keeps API code from duplicating this everywhere.
+    """
+    return {
+        "question": question,
+        "document_filter": None,
+        "reformulated_query": "",
+        "retrieved_context": "",
+        "retrieval_grade": "",
+        "retry_count": 0,
+        "top_similarity": 0.0,
+        "answer": "",
+        "steps": [],
+    }
