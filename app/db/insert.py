@@ -10,17 +10,21 @@ Parent-child structure:
 from sqlalchemy import text
 import json
 
+def delete_document_by_name(conn, name: str) -> bool:
+    """
+    Delete a document and ALL its chunks (CASCADE).
+    Returns True if a document was deleted, False if it did not exist.
+    """
+    result = conn.execute(
+        text("DELETE FROM documents WHERE name = :name"),
+        {"name": name}
+    )
+    return result.rowcount > 0
+
 
 def insert_document(conn, name: str) -> int:
     """
     Insert a document record and return its auto-generated ID.
-    
-    Args:
-        conn: SQLAlchemy connection (from engine.begin())
-        name: Display name of the document (e.g., "ITF Rules")
-    
-    Returns:
-        The new document's ID (integer).
     """
     result = conn.execute(
         text("INSERT INTO documents (name) VALUES (:name) RETURNING id"),
@@ -29,13 +33,7 @@ def insert_document(conn, name: str) -> int:
     return result.fetchone()[0]
 
 
-def insert_parent_chunk(
-    conn, 
-    document_id: int, 
-    content: str, 
-    page: int, 
-    metadata: dict
-) -> int:
+def insert_parent_chunk(conn, document_id: int, content: str, page: int, metadata: dict) -> int:
     """
     Insert a parent chunk and return its ID.
 
@@ -68,14 +66,7 @@ def insert_parent_chunk(
     return result.fetchone()[0]
 
 
-def insert_child_chunk(
-    conn,
-    parent_id: int,
-    document_id: int,
-    content: str,
-    embedding: list,
-    metadata: dict
-):
+def insert_child_chunk(conn, parent_id: int, document_id: int, content: str, embedding: list, metadata: dict):
     """
     Insert a child chunk with embedding.
 
