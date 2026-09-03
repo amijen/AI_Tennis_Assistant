@@ -3,7 +3,7 @@ Pydantic models for API request/response validation.
 """
 
 from pydantic import BaseModel, Field, field_validator
-
+import re
 
 class AskRequest(BaseModel):
     """Incoming question from the frontend."""
