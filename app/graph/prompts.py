@@ -10,7 +10,9 @@ DO NOT answer the question. Just reformulate it if needed, otherwise return it a
 CHAT HISTORY:
 {chat_history}
 
-USER QUESTION: {question}
+<user_question>
+{question}
+</user_question>
 
 STANDALONE QUESTION:
 """
@@ -22,10 +24,14 @@ STANDALONE QUESTION:
 GRADE_PROMPT = """
 You are a grader evaluating whether retrieved tennis rule excerpts are relevant to the user's question.
 
-QUESTION: {question}
+<question>
+{question}
+</question>
 
 RETRIEVED EXCERPTS:
+<context>
 {context}
+</context>
 
 Is the retrieved context relevant to answering the question?
 - Answer "relevant" if the excerpts contain information that helps answer the question (even partially).
@@ -43,7 +49,10 @@ Respond with ONLY one word: relevant or irrelevant.
 REFORMULATE_PROMPT = """
 The original search query did not return relevant tennis rules.
 
-ORIGINAL QUESTION: {question}
+ORIGINAL QUESTION: 
+<question>
+{question}
+</question>
 
 Reformulate this question into a better search query for a tennis rulebook database.
 
@@ -67,7 +76,9 @@ CONVERSATION HISTORY:
 {chat_history}
 
 CONTEXT:
+<context>
 {context}
+</context>
 
 RULES:
 1. Answer directly and clearly based on the context.
@@ -75,7 +86,10 @@ RULES:
 3. Always cite sources exactly as: "Source: [Document Name], page [X]"
 4. If the context does not contain enough info, state that clearly without guessing.
 
-QUESTION: {question}
+QUESTION:
+<user_question>
+{question}
+</user_question>
 ANSWER:
 """
 
