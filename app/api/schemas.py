@@ -2,7 +2,7 @@
 Pydantic models for API request/response validation.
 """
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 
 class AskRequest(BaseModel):
@@ -18,8 +18,17 @@ class AskRequest(BaseModel):
 
     conversation_id: str = Field(
         default="default",
+        min_length = 1,
+        max_length = 64,
         description="Session/Thread ID for maintaining conversation memory",
     )
+
+    @field_validator("conversation_id")
+    @classmethod
+    def check_id(cls, v: str) -> str:
+        if not re.match(r"^[a-zA-Z0-9_-]+$", v):
+            raise ValueError("conversation_id can only contain letters, numbers, -, _")
+        return v
 
 
 class Source(BaseModel):
