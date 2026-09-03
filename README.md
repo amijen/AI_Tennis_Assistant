@@ -247,6 +247,10 @@ Open **http://localhost:8000** in your browser. That's it — the chat UI is ser
 - [x] Evaluation framework with golden test set
 - [x] Docker deployment
 
+## 📄 License
+
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+
 ## 🙏 Acknowledgements
 
 - [ITF Rules of Tennis 2026](https://www.itftennis.com) — Official rulebook
