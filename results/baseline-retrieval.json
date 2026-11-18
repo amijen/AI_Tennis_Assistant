@@ -1,0 +1,634 @@
+{
+  "routing": {
+    "n": 35,
+    "accuracy": 1.0,
+    "conflicts": 1,
+    "rows": [
+      {
+        "id": "itf-01",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "itf-02",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "itf-03",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "itf-04",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "itf-05",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "itf-06",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "itf-07",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "itf-08",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "itf-09",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "itf-10",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "itf-11",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "itf-12",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "itf-13",
+        "filter": "ITF Rules",
+        "expected": "ITF Rules",
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "itf-14",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "itf-15",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "gs-01",
+        "filter": "Grand Slam Rules",
+        "expected": "Grand Slam Rules",
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "gs-02",
+        "filter": "Grand Slam Rules",
+        "expected": "Grand Slam Rules",
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "gs-03",
+        "filter": "Grand Slam Rules",
+        "expected": "Grand Slam Rules",
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "gs-04",
+        "filter": "Grand Slam Rules",
+        "expected": "Grand Slam Rules",
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "gs-05",
+        "filter": "Grand Slam Rules",
+        "expected": "Grand Slam Rules",
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "gs-06",
+        "filter": "Grand Slam Rules",
+        "expected": "Grand Slam Rules",
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "gs-07",
+        "filter": "Grand Slam Rules",
+        "expected": "Grand Slam Rules",
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "gs-08",
+        "filter": "Grand Slam Rules",
+        "expected": "Grand Slam Rules",
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "gs-09",
+        "filter": "Grand Slam Rules",
+        "expected": "Grand Slam Rules",
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "gs-10",
+        "filter": "Grand Slam Rules",
+        "expected": "Grand Slam Rules",
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "both-01",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "both-02",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "mis-01",
+        "filter": "ITF Rules",
+        "expected": "ITF Rules",
+        "correct": true,
+        "conflict": true
+      },
+      {
+        "id": "typo-01",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "typo-02",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "typo-03",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "oos-01",
+        "filter": "Grand Slam Rules",
+        "expected": "Grand Slam Rules",
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "oos-02",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "oos-03",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "oos-04",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      }
+    ]
+  },
+  "retrieval": {
+    "n": 31,
+    "hit@4": 0.8709677419354839,
+    "mrr": 0.8387096774193549,
+    "by_category": {
+      "both_docs": 0.0,
+      "colloquial": 0.6666666666666666,
+      "misrouted": 0.0,
+      "single_doc": 1.0
+    },
+    "recovered_by_widening": 1.0,
+    "fact_in_retrieved": 0.9354838709677419,
+    "fact_in_context": 0.9354838709677419,
+    "oos_false_retrieval": 1.0,
+    "rows": [
+      {
+        "id": "itf-01",
+        "category": "single_doc",
+        "filter": null,
+        "found": true,
+        "rank": 2,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.8145
+      },
+      {
+        "id": "itf-02",
+        "category": "single_doc",
+        "filter": null,
+        "found": true,
+        "rank": 2,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.7775
+      },
+      {
+        "id": "itf-03",
+        "category": "single_doc",
+        "filter": null,
+        "found": true,
+        "rank": 2,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.7624
+      },
+      {
+        "id": "itf-04",
+        "category": "single_doc",
+        "filter": null,
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.8336
+      },
+      {
+        "id": "itf-05",
+        "category": "single_doc",
+        "filter": null,
+        "found": true,
+        "rank": 2,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.8174
+      },
+      {
+        "id": "itf-06",
+        "category": "single_doc",
+        "filter": null,
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.7094
+      },
+      {
+        "id": "itf-07",
+        "category": "single_doc",
+        "filter": null,
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.8175
+      },
+      {
+        "id": "itf-08",
+        "category": "single_doc",
+        "filter": null,
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.7835
+      },
+      {
+        "id": "itf-09",
+        "category": "single_doc",
+        "filter": null,
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.818
+      },
+      {
+        "id": "itf-10",
+        "category": "single_doc",
+        "filter": null,
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.7873
+      },
+      {
+        "id": "itf-11",
+        "category": "single_doc",
+        "filter": null,
+        "found": true,
+        "rank": 2,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.7465
+      },
+      {
+        "id": "itf-12",
+        "category": "single_doc",
+        "filter": null,
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.8021
+      },
+      {
+        "id": "itf-13",
+        "category": "single_doc",
+        "filter": "ITF Rules",
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.7795
+      },
+      {
+        "id": "itf-14",
+        "category": "single_doc",
+        "filter": null,
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.8037
+      },
+      {
+        "id": "itf-15",
+        "category": "single_doc",
+        "filter": null,
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.7428
+      },
+      {
+        "id": "gs-01",
+        "category": "single_doc",
+        "filter": "Grand Slam Rules",
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.8376
+      },
+      {
+        "id": "gs-02",
+        "category": "single_doc",
+        "filter": "Grand Slam Rules",
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.8218
+      },
+      {
+        "id": "gs-03",
+        "category": "single_doc",
+        "filter": "Grand Slam Rules",
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.8295
+      },
+      {
+        "id": "gs-04",
+        "category": "single_doc",
+        "filter": "Grand Slam Rules",
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.8293
+      },
+      {
+        "id": "gs-05",
+        "category": "single_doc",
+        "filter": "Grand Slam Rules",
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.8328
+      },
+      {
+        "id": "gs-06",
+        "category": "single_doc",
+        "filter": "Grand Slam Rules",
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.7537
+      },
+      {
+        "id": "gs-07",
+        "category": "single_doc",
+        "filter": "Grand Slam Rules",
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.7315
+      },
+      {
+        "id": "gs-08",
+        "category": "single_doc",
+        "filter": "Grand Slam Rules",
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.7747
+      },
+      {
+        "id": "gs-09",
+        "category": "single_doc",
+        "filter": "Grand Slam Rules",
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.8393
+      },
+      {
+        "id": "gs-10",
+        "category": "single_doc",
+        "filter": "Grand Slam Rules",
+        "found": true,
+        "rank": 2,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.7401
+      },
+      {
+        "id": "both-01",
+        "category": "both_docs",
+        "filter": null,
+        "found": false,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.7555
+      },
+      {
+        "id": "both-02",
+        "category": "both_docs",
+        "filter": null,
+        "found": false,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.7584
+      },
+      {
+        "id": "mis-01",
+        "category": "misrouted",
+        "filter": "ITF Rules",
+        "found": false,
+        "rank": null,
+        "recovered_by_widening": true,
+        "fact_in_retrieved": false,
+        "fact_in_context": false,
+        "top_similarity": 0.6175
+      },
+      {
+        "id": "typo-01",
+        "category": "colloquial",
+        "filter": null,
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.643
+      },
+      {
+        "id": "typo-02",
+        "category": "colloquial",
+        "filter": null,
+        "found": false,
+        "rank": null,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": false,
+        "fact_in_context": false,
+        "top_similarity": 0.7006
+      },
+      {
+        "id": "typo-03",
+        "category": "colloquial",
+        "filter": null,
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.7009
+      }
+    ],
+    "oos_rows": [
+      {
+        "id": "oos-01",
+        "n_results": 4,
+        "top_similarity": 0.6313
+      },
+      {
+        "id": "oos-02",
+        "n_results": 4,
+        "top_similarity": 0.628
+      },
+      {
+        "id": "oos-03",
+        "n_results": 4,
+        "top_similarity": 0.4853
+      },
+      {
+        "id": "oos-04",
+        "n_results": 4,
+        "top_similarity": 0.5479
+      }
+    ]
+  }
+}

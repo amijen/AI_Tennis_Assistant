@@ -1,0 +1,1011 @@
+{
+  "routing": {
+    "n": 35,
+    "accuracy": 1.0,
+    "conflicts": 1,
+    "rows": [
+      {
+        "id": "itf-01",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "itf-02",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "itf-03",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "itf-04",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "itf-05",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "itf-06",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "itf-07",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "itf-08",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "itf-09",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "itf-10",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "itf-11",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "itf-12",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "itf-13",
+        "filter": "ITF Rules",
+        "expected": "ITF Rules",
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "itf-14",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "itf-15",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "gs-01",
+        "filter": "Grand Slam Rules",
+        "expected": "Grand Slam Rules",
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "gs-02",
+        "filter": "Grand Slam Rules",
+        "expected": "Grand Slam Rules",
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "gs-03",
+        "filter": "Grand Slam Rules",
+        "expected": "Grand Slam Rules",
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "gs-04",
+        "filter": "Grand Slam Rules",
+        "expected": "Grand Slam Rules",
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "gs-05",
+        "filter": "Grand Slam Rules",
+        "expected": "Grand Slam Rules",
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "gs-06",
+        "filter": "Grand Slam Rules",
+        "expected": "Grand Slam Rules",
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "gs-07",
+        "filter": "Grand Slam Rules",
+        "expected": "Grand Slam Rules",
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "gs-08",
+        "filter": "Grand Slam Rules",
+        "expected": "Grand Slam Rules",
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "gs-09",
+        "filter": "Grand Slam Rules",
+        "expected": "Grand Slam Rules",
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "gs-10",
+        "filter": "Grand Slam Rules",
+        "expected": "Grand Slam Rules",
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "both-01",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "both-02",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "mis-01",
+        "filter": "ITF Rules",
+        "expected": "ITF Rules",
+        "correct": true,
+        "conflict": true
+      },
+      {
+        "id": "typo-01",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "typo-02",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "typo-03",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "oos-01",
+        "filter": "Grand Slam Rules",
+        "expected": "Grand Slam Rules",
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "oos-02",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "oos-03",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      },
+      {
+        "id": "oos-04",
+        "filter": null,
+        "expected": null,
+        "correct": true,
+        "conflict": false
+      }
+    ]
+  },
+  "retrieval": {
+    "n": 31,
+    "hit@4": 0.8709677419354839,
+    "mrr": 0.8387096774193549,
+    "by_category": {
+      "both_docs": 0.0,
+      "colloquial": 0.6666666666666666,
+      "misrouted": 0.0,
+      "single_doc": 1.0
+    },
+    "recovered_by_widening": 1.0,
+    "fact_in_retrieved": 0.9354838709677419,
+    "fact_in_context": 0.9354838709677419,
+    "oos_false_retrieval": 1.0,
+    "rows": [
+      {
+        "id": "itf-01",
+        "category": "single_doc",
+        "filter": null,
+        "found": true,
+        "rank": 2,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.8145
+      },
+      {
+        "id": "itf-02",
+        "category": "single_doc",
+        "filter": null,
+        "found": true,
+        "rank": 2,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.7775
+      },
+      {
+        "id": "itf-03",
+        "category": "single_doc",
+        "filter": null,
+        "found": true,
+        "rank": 2,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.7624
+      },
+      {
+        "id": "itf-04",
+        "category": "single_doc",
+        "filter": null,
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.8336
+      },
+      {
+        "id": "itf-05",
+        "category": "single_doc",
+        "filter": null,
+        "found": true,
+        "rank": 2,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.8174
+      },
+      {
+        "id": "itf-06",
+        "category": "single_doc",
+        "filter": null,
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.7094
+      },
+      {
+        "id": "itf-07",
+        "category": "single_doc",
+        "filter": null,
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.8175
+      },
+      {
+        "id": "itf-08",
+        "category": "single_doc",
+        "filter": null,
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.7835
+      },
+      {
+        "id": "itf-09",
+        "category": "single_doc",
+        "filter": null,
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.818
+      },
+      {
+        "id": "itf-10",
+        "category": "single_doc",
+        "filter": null,
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.7873
+      },
+      {
+        "id": "itf-11",
+        "category": "single_doc",
+        "filter": null,
+        "found": true,
+        "rank": 2,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.7465
+      },
+      {
+        "id": "itf-12",
+        "category": "single_doc",
+        "filter": null,
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.8021
+      },
+      {
+        "id": "itf-13",
+        "category": "single_doc",
+        "filter": "ITF Rules",
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.7795
+      },
+      {
+        "id": "itf-14",
+        "category": "single_doc",
+        "filter": null,
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.8037
+      },
+      {
+        "id": "itf-15",
+        "category": "single_doc",
+        "filter": null,
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.7428
+      },
+      {
+        "id": "gs-01",
+        "category": "single_doc",
+        "filter": "Grand Slam Rules",
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.8376
+      },
+      {
+        "id": "gs-02",
+        "category": "single_doc",
+        "filter": "Grand Slam Rules",
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.8218
+      },
+      {
+        "id": "gs-03",
+        "category": "single_doc",
+        "filter": "Grand Slam Rules",
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.8295
+      },
+      {
+        "id": "gs-04",
+        "category": "single_doc",
+        "filter": "Grand Slam Rules",
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.8293
+      },
+      {
+        "id": "gs-05",
+        "category": "single_doc",
+        "filter": "Grand Slam Rules",
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.8328
+      },
+      {
+        "id": "gs-06",
+        "category": "single_doc",
+        "filter": "Grand Slam Rules",
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.7537
+      },
+      {
+        "id": "gs-07",
+        "category": "single_doc",
+        "filter": "Grand Slam Rules",
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.7315
+      },
+      {
+        "id": "gs-08",
+        "category": "single_doc",
+        "filter": "Grand Slam Rules",
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.7747
+      },
+      {
+        "id": "gs-09",
+        "category": "single_doc",
+        "filter": "Grand Slam Rules",
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.8393
+      },
+      {
+        "id": "gs-10",
+        "category": "single_doc",
+        "filter": "Grand Slam Rules",
+        "found": true,
+        "rank": 2,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.7401
+      },
+      {
+        "id": "both-01",
+        "category": "both_docs",
+        "filter": null,
+        "found": false,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.7555
+      },
+      {
+        "id": "both-02",
+        "category": "both_docs",
+        "filter": null,
+        "found": false,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.7584
+      },
+      {
+        "id": "mis-01",
+        "category": "misrouted",
+        "filter": "ITF Rules",
+        "found": false,
+        "rank": null,
+        "recovered_by_widening": true,
+        "fact_in_retrieved": false,
+        "fact_in_context": false,
+        "top_similarity": 0.6175
+      },
+      {
+        "id": "typo-01",
+        "category": "colloquial",
+        "filter": null,
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.643
+      },
+      {
+        "id": "typo-02",
+        "category": "colloquial",
+        "filter": null,
+        "found": false,
+        "rank": null,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": false,
+        "fact_in_context": false,
+        "top_similarity": 0.7006
+      },
+      {
+        "id": "typo-03",
+        "category": "colloquial",
+        "filter": null,
+        "found": true,
+        "rank": 1,
+        "recovered_by_widening": null,
+        "fact_in_retrieved": true,
+        "fact_in_context": true,
+        "top_similarity": 0.7009
+      }
+    ],
+    "oos_rows": [
+      {
+        "id": "oos-01",
+        "n_results": 4,
+        "top_similarity": 0.6313
+      },
+      {
+        "id": "oos-02",
+        "n_results": 4,
+        "top_similarity": 0.628
+      },
+      {
+        "id": "oos-03",
+        "n_results": 4,
+        "top_similarity": 0.4853
+      },
+      {
+        "id": "oos-04",
+        "n_results": 4,
+        "top_similarity": 0.5479
+      }
+    ]
+  },
+  "answers": {
+    "n": 37,
+    "errors": 0,
+    "pass_rate": 0.972972972972973,
+    "keyword_rate": 1.0,
+    "citation_rate": 0.9696969696969697,
+    "refusal_rate": 1.0,
+    "avg_retries": 0.2702702702702703,
+    "rows": [
+      {
+        "id": "itf-01",
+        "category": "single_doc",
+        "error": null,
+        "answer": "The standard tennis court is a rectangle that measures **78 feet (23.77 m) in length**.  \nFor singles play the width is **27 feet (8.23 m)**, and for doubles play the width is **36 feet (10.97 m)**.  \n\n*Source: ITF Rules, page 5*  \n\n(If you are interested in the smaller courts used for “10 and under” competition, the ITF also specifies “Red” courts of 36–42 ft × 14–20 ft and “Orange” courts of 58–60 ft × 20–27 ft.)",
+        "retries": 0,
+        "keywords_ok": true,
+        "citation_ok": true,
+        "passed": true
+      },
+      {
+        "id": "itf-02",
+        "category": "single_doc",
+        "error": null,
+        "answer": "The net is 3 feet (0.914 m) high at the centre of a standard tennis court.  \nSource: ITF Rules, page 5.",
+        "retries": 0,
+        "keywords_ok": true,
+        "citation_ok": true,
+        "passed": true
+      },
+      {
+        "id": "itf-03",
+        "category": "single_doc",
+        "error": null,
+        "answer": "A tennis **game** is scored in two main ways:\n\n| Type of game | Point values | Winning condition |\n|--------------|--------------|-------------------|\n| **Standard game** | No point – “Love” <br> First point – “15” <br> Second point – “30” <br> Third point – “40” <br> Fourth point – “Game” | The player/team that wins the fourth point wins the game, **unless** both players have reached 40‑40 (“Deuce”). After Deuce, a player must win two consecutive points: the first gives “Advantage”; if the same player wins the next point, they win the game; if the opponent wins, the score returns to Deuce. |\n| **Tie‑break game** | Points are counted numerically: “Zero”, “1”, “2”, “3”, … | The first player/team to reach **seven points** wins the game (and the set), **provided** they have a margin of at least two points. If the score is tied at 6‑6, play continues until a two‑point margin is achieved. |\n\n**Sources**\n\n- Standard game rules: *Source: ITF Rules, page 8*  \n- Tie‑break game rules: *Source: ITF Rules, page 8*",
+        "retries": 0,
+        "keywords_ok": true,
+        "citation_ok": true,
+        "passed": true
+      },
+      {
+        "id": "itf-04",
+        "category": "single_doc",
+        "error": null,
+        "answer": "A **let during a service** is a situation in which the serve is considered invalid and the point is replayed, but the fault does not count against the server. According to the ITF rules:\n\n* The service is a let if:\n  * **a.** The ball touches the net (or its strap or band) and is otherwise good; or, after touching the net, it touches the receiver, the receiver’s partner, or anything they wear or carry before hitting the ground.  \n  * **b.** The ball is served when the receiver is not ready.  \n\n* In the case of a service let, that particular service shall not count, and the server shall serve again, but a service let does not cancel a previous fault.  \n\nSource: *ITF Rules*, page 12 (Excerpt 1) and page 12 (Excerpt 4).",
+        "retries": 0,
+        "keywords_ok": true,
+        "citation_ok": true,
+        "passed": true
+      },
+      {
+        "id": "itf-05",
+        "category": "single_doc",
+        "error": null,
+        "answer": "A player loses a point if **any part of the player, the racket, or any equipment the player is wearing or carrying touches the net, the net posts/singles sticks, the cord or metal cable, a strap or band, or the opponent’s court while the ball is in play**.  \n\nSource: *ITF Rules*, page 24 (Rule 24 g).",
+        "retries": 0,
+        "keywords_ok": true,
+        "citation_ok": true,
+        "passed": true
+      },
+      {
+        "id": "itf-06",
+        "category": "single_doc",
+        "error": null,
+        "answer": "A foot fault is a service‑motion violation defined in the ITF Rules of Tennis. It occurs when the server breaks any of the following conditions while serving:\n\n- **a.** Changing position by walking or running (except for slight foot movements).  \n- **b.** Touching the baseline or the court with either foot.  \n- **c.** Touching the area outside the imaginary extension of the sideline with either foot.  \n- **d.** Touching the imaginary extension of the centre mark with either foot.  \n\nIf any of these are committed, the serve is a “Foot Fault.”  \n\n**Additional notes from the ITF Rules (page 11):**  \n- In a singles match, the server may **not** stand behind the part of the baseline between the singles sideline and the doubles sideline; this is permitted in doubles.  \n- The server may have one or both feet off the ground during the serve.  \n\nSource: *ITF Rules*, page 11.",
+        "retries": 0,
+        "keywords_ok": true,
+        "citation_ok": true,
+        "passed": true
+      },
+      {
+        "id": "itf-07",
+        "category": "single_doc",
+        "error": null,
+        "answer": "When a ball touches a line, it is considered to have touched the court bounded by that line and therefore remains in play.  \n\nSource: ITF Rules, page 10.",
+        "retries": 0,
+        "keywords_ok": true,
+        "citation_ok": true,
+        "passed": true
+      },
+      {
+        "id": "itf-08",
+        "category": "single_doc",
+        "error": null,
+        "answer": "A **tie‑break set** is a set in which the winner is decided by a tie‑break game when the score reaches 6‑6.  \n- The set is played as a normal set until each side has won six games.  \n- If one player/team has a two‑game margin (e.g., 6‑4, 7‑5), that player/team wins the set.  \n- If the score reaches 6‑6, a **tie‑break game** is played to determine the set winner.  \n- The tie‑break game is a separate game that is played instead of continuing the set until a two‑game margin is achieved.  \n\nThe method (advantage set or tie‑break set) must be announced before the event, and if a tie‑break set is used, it must also be announced whether the final set will be played as a tie‑break set or an advantage set.  \n\n**Source:** ITF Rules, page 9.",
+        "retries": 0,
+        "keywords_ok": true,
+        "citation_ok": true,
+        "passed": true
+      },
+      {
+        "id": "itf-09",
+        "category": "single_doc",
+        "error": null,
+        "answer": "**Who chooses the ends and who serves first at the start of a match?**\n\n- The **winner of the toss** decides the first‑game arrangements.  \n  - They may choose **to be the server or the receiver** in the first game.  \n  - If they choose to be the server/receiver, the **opponent chooses the end of the court** for that first game.  \n  - Alternatively, they may choose **the end of the court** for the first game, in which case the **opponent chooses whether to serve or receive**.  \n  - They can also require the opponent to make one of the above choices.\n\n- If the warm‑up is stopped and the players leave the court, the original toss result still stands, but **both players/teams may make new choices** for the start of play.  \n\n> **Source:** ITF Rules, page 9.  \n\nThe Grand Slam Rules excerpt does not address the choice of ends or service; it only states that a match officially starts when the first serve is struck. Thus, the ITF rules provide the relevant procedure.",
+        "retries": 0,
+        "keywords_ok": true,
+        "citation_ok": true,
+        "passed": true
+      },
+      {
+        "id": "itf-10",
+        "category": "single_doc",
+        "error": null,
+        "answer": "**When players change ends**\n\n| Situation | When ends are changed | Source |\n|-----------|-----------------------|--------|\n| Regular play (non‑tiebreak) | At the end of the 1st, 3rd, and every subsequent odd‑numbered game of each set. | Source: ITF Rules, page 10 |\n| End of a set | Players change ends at the end of each set **unless** the total number of games in that set is even; if the set has an even number of games, the change occurs at the end of the first game of the next set. | Source: ITF Rules, page 10 |\n| During a standard tiebreak | Players change ends after every six points. | Source: ITF Rules, page 10 |\n| Short‑set tie‑break (5‑point tie‑break) | Players change ends only after the first four points have been played. | Source: ITF Rules, page 30 |\n\nThese are the rules as stated in the ITF Rules of Tennis. No additional Grand Slam‑specific differences are provided in the supplied context.",
+        "retries": 0,
+        "keywords_ok": true,
+        "citation_ok": true,
+        "passed": true
+      },
+      {
+        "id": "itf-11",
+        "category": "single_doc",
+        "error": null,
+        "answer": "**Hindrance** is a situation in which a player’s ability to play a point is interfered with.  \nAccording to the ITF Rules (Excerpt 2):\n\n* **Deliberate act of the opponent** – If a player is hindered by a deliberate act of the opponent(s), the player wins the point.  \n* **Unintentional act of the opponent or something outside the player’s control** – If a player is hindered by an unintentional act of the opponent(s) or by an external factor (not including a permanent fixture), the point is replayed.  \n\nExamples from the rules:\n\n| Example | Hindrance? | Result |\n|---------|------------|--------|\n| Unintentional double hit | No | (Rule 24 f) |\n| Player stops play because they think the opponent is being hindered | No – the player loses the point |\n| Ball in play hits a bird flying over the court | Yes – the point is replayed |\n| A ball or other object lying on the player’s side of the net when the point starts | No |\n\n**Source:** ITF Rules, page 15.",
+        "retries": 0,
+        "keywords_ok": true,
+        "citation_ok": true,
+        "passed": true
+      },
+      {
+        "id": "itf-12",
+        "category": "single_doc",
+        "error": null,
+        "answer": "The balls that may be used in a match are those that **meet the specifications set out in Appendix I of the ITF Rules of Tennis**.  \nThe International Tennis Federation (ITF) is the sole authority that determines whether a ball or prototype complies with Appendix I and is therefore approved for play.  \n\n> **Source:** ITF Rules, page 6  \n\nIf a ball does not comply with Appendix I, it is not approved for use in competition. No other type of ball is listed as approved in the provided excerpts.",
+        "retries": 0,
+        "keywords_ok": true,
+        "citation_ok": true,
+        "passed": true
+      },
+      {
+        "id": "itf-13",
+        "category": "single_doc",
+        "error": null,
+        "answer": "Under the ITF Rules, coaching is **not permitted during the playing of a point** and, in all competitions other than team events, on‑court coaching is prohibited. Off‑court coaching may be allowed only if the sanctioning body specifically permits it.\n\n- “Coaching is not permitted during the playing of a point.”  \n  **Source:** ITF Rules, page 17  \n- “In all other competitions, On‑Court Coaching is not permitted.”  \n  **Source:** ITF Rules, page 17  \n\nSo, during a standard match, coaching is not allowed on‑court; it can only occur off‑court if the governing body has approved that arrangement.",
+        "retries": 0,
+        "keywords_ok": true,
+        "citation_ok": true,
+        "passed": true
+      },
+      {
+        "id": "itf-14",
+        "category": "single_doc",
+        "error": null,
+        "answer": "Yes, but only under specific conditions.\n\n- **ITF Rules**: Player‑analysis technology that is approved for play must meet the specifications in Appendix III. The International Tennis Federation decides whether a particular device is approved. Once approved, players may use the technology **only at times when coaching is permitted** (e.g., during breaks or between points). It is explicitly prohibited to use it while a point is being played.  \n  *Source: ITF Rules, page 17 (excerpt 2) and page 17 (excerpt 4)*\n\n- **Grand Slam Rules**: The Grand Slam regulations do not add any additional restrictions beyond those in the ITF Rules. Therefore, the same conditions apply.\n\nIn short, players can use approved player‑analysis technology during a match, but only when coaching is allowed and not during the actual play of a point.",
+        "retries": 0,
+        "keywords_ok": true,
+        "citation_ok": true,
+        "passed": true
+      },
+      {
+        "id": "itf-15",
+        "category": "single_doc",
+        "error": null,
+        "answer": "The time allowed between points is **25 seconds**.\n\n- **ITF Rules**: “Between points, a maximum of twenty‑five (25) seconds is allowed.” (Source: ITF Rules, page 16)  \n- **Grand Slam Rules**: “A maximum of twenty‑five (25) seconds shall elapse from the moment the ball goes out of play at the end of the point until the time the ball is struck for the first serve of the next point.” (Source: Grand Slam Rules, page 56)\n\nBoth sets of rules specify the same 25‑second limit, with no difference between them.",
+        "retries": 0,
+        "keywords_ok": true,
+        "citation_ok": true,
+        "passed": true
+      },
+      {
+        "id": "gs-01",
+        "category": "single_doc",
+        "error": null,
+        "answer": "**Grand Slam Point Penalty Schedule**\n\n| Offence | Penalty |\n|---------|---------|\n| **First offence** | Warning |\n| **Second offence** | Point penalty |\n| **Third and each subsequent offence** | Game penalty |\n\nAfter the third Code Violation, the Referee, in consultation with the Grand Slam Chief of Supervisors, may determine whether each subsequent offence constitutes a default.  \n\n*Source: Grand Slam Rules, page 59*",
+        "retries": 0,
+        "keywords_ok": true,
+        "citation_ok": true,
+        "passed": true
+      },
+      {
+        "id": "gs-02",
+        "category": "single_doc",
+        "error": null,
+        "answer": "The Grand Slam Rule Book requires that every player at Wimbledon (and all other Grand Slam tournaments) dress in a professional, clean, and “customarily acceptable” tennis attire as set by the specific tournament.  \n- **Unacceptable attire** includes sweatshirts, gym shorts, dress shirts, T‑shirts, or any other inappropriate clothing, and may not be worn during a match or warm‑up.  \n- **Shoes** must be tennis shoes that are generally accepted as proper tennis attire and must not cause damage to the court beyond what is expected during normal play.  \n\nAny exceptions to these standards must be submitted by manufacturers to the Director of Rules and Regulations, Grand Slam Tennis, before the tournament for approval.  \n\nSource: *Grand Slam Rules*, page 49.",
+        "retries": 0,
+        "keywords_ok": true,
+        "citation_ok": true,
+        "passed": true
+      },
+      {
+        "id": "gs-03",
+        "category": "single_doc",
+        "error": null,
+        "answer": "The Grand Slam Rules state that a player who uses audible obscenity on site will be fined **up to $50,000 per violation**.  \nIf the obscenity occurs during a match (including warm‑up), the player will also receive the point penalty specified in the Point Penalty Schedule (the exact points are not listed in the excerpts provided).  \nIn cases that are flagrant, particularly injurious to the tournament, or singularly egregious, the single violation also constitutes the Major Offence of “Aggravated Behaviour” and may carry additional penalties beyond the fine and point penalty.  \n\n**Source:** Grand Slam Rules, page 56.",
+        "retries": 0,
+        "keywords_ok": true,
+        "citation_ok": true,
+        "passed": true
+      },
+      {
+        "id": "gs-04",
+        "category": "single_doc",
+        "error": null,
+        "answer": "**Grand Slam rules on coaching and coaches**\n\n- Coaching is permitted at all Grand Slam tournaments under the following conditions:  \n  - The coach must sit in the tournament’s designated coaches’ seats.  \n  - Verbal coaching is allowed only when the player is at the same end of the court and may consist of a few words or short phrases (no conversations).  \n  - Non‑verbal coaching (hand signals) is permitted.  \n  - Coaching (verbal or non‑verbal) is allowed only if it does not interrupt play or create any hindrance to the opponent.  \n  - Players may approach their coach or engage in conversation with their coach during an opposing player’s Medical Timeout, a Toilet Break / Change of Attire Break, or another break approved by the Chair Umpire while the players remain on court.  \n  - Coaches may not speak to their player when the player leaves the court for any reason.  \n  - Penalties and fines apply for abuse or misuse of the coaching conditions.  \n\n- These regulations apply to all Grand Slam tournaments and all players, including wheelchair tennis players.  \n\n**Sources**  \n- “Source: Grand Slam Rules, page 57”  \n- “Source: Grand Slam Rules, page 9”",
+        "retries": 0,
+        "keywords_ok": true,
+        "citation_ok": true,
+        "passed": true
+      },
+      {
+        "id": "gs-05",
+        "category": "single_doc",
+        "error": null,
+        "answer": "**Aggravated behaviour** at a Grand Slam tournament is defined as any conduct that meets one of the following criteria:\n\n1. **One or more incidents** that are specifically listed in the Code as “Aggravated Behaviour.”  \n2. **A single incident** that is *flagrant* and *particularly injurious* to the success of the tournament, or is *singularly egregious* (e.g., submitting a falsified Covid‑19 vaccination record).  \n3. **A series of two or more violations** of the Code within a twelve‑month period that, when viewed together, establish a pattern of conduct that is collectively egregious and detrimental to the tournament.  \n\n> *Source: Grand Slam Rules, page 61*\n\nAdditionally, certain violations—such as late withdrawal, verbal abuse, or physical abuse—can be deemed “Aggravated Behaviour” if they are flagrant, particularly injurious, or singularly egregious, thereby constituting a major offence with extra penalties.\n\n> *Source: Grand Slam Rules, page 47 (Late Withdrawal)*  \n> *Source: Grand Slam Rules, page 58 (Verbal Abuse)*  \n> *Source: Grand Slam Rules, page 59 (Physical Abuse)*",
+        "retries": 0,
+        "keywords_ok": true,
+        "citation_ok": true,
+        "passed": true
+      },
+      {
+        "id": "gs-06",
+        "category": "single_doc",
+        "error": null,
+        "answer": "**Chair Umpire duties at the US Open (as defined by the Grand Slam Rules)**  \n\n1. **Be fully familiar with all relevant rules** – the Chair Umpire must know the Grand Slam Rules, Grand Slam Tournament Regulations, Grand Slam Code of Conduct, Rules of Tennis, and the Duties and Procedures for Officials, and carry out duties in line with approved procedures, including any electronic officiating aids and review systems.  \n   *Source: Grand Slam Rules, page 18*\n\n2. **Dress uniformly** – the Chair Umpire must wear the prescribed uniform in accordance with the Referee’s instructions.  \n   *Source: Grand Slam Rules, page 18*\n\n3. **Find out the correct pronunciation of the players’ names** – the Chair Umpire should confirm how each player’s name is pronounced.  \n   *Source: Grand Slam Rules, page 18*\n\n4. **Be on court before the players arrive** – the Chair Umpire must be present on the court prior to the players’ arrival.  \n   *Source: Grand Slam Rules, page 18*\n\n5. **Meet with the players before the match** – immediately prior to the match the Chair Umpire must:\n   - a. State any relevant information for the players.  \n   - b. Toss a coin in the presence of both players/teams to determine choice of serve and side at the beginning of the match, before warm‑up. If play is suspended before the match begins, the players may choose again; the result of the toss stands.  \n   *Source: Grand Slam Rules, page 18*\n\nThese duties apply to the Chair Umpire at any Grand Slam tournament, including the US Open.",
+        "retries": 0,
+        "keywords_ok": true,
+        "citation_ok": true,
+        "passed": true
+      },
+      {
+        "id": "gs-07",
+        "category": "single_doc",
+        "error": null,
+        "answer": "When rain forces a Grand Slam match to stop, the procedure is the same as for any weather‑related suspension:\n\n1. **Temporary suspension** – The Chair Umpire (or the Referee) may suspend play immediately because of rain or other adverse ground conditions.  \n2. **Reporting** – The Chair Umpire must report the suspension right away to the Referee.  \n3. **Postponement decision** – The Referee, in consultation with Grand Slam Supervisors, decides whether the match will be postponed to a later day.  \n4. **Stand‑by status** – Until the Referee officially postpones the match, the players, the Chair Umpire, and all on‑court officials must remain ready to resume play.  \n5. **Record keeping** – The Chair Umpire must record the time, point, game, and set score, the name of the server, the sides each player was on, and collect all balls in use.\n\nSource: *Grand Slam Rules*, page 31.",
+        "retries": 0,
+        "keywords_ok": true,
+        "citation_ok": true,
+        "passed": true
+      },
+      {
+        "id": "gs-08",
+        "category": "single_doc",
+        "error": null,
+        "answer": "**Grand Slam Rulebook – Punctuality**\n\n- Matches must be played one after another without delay, following the announced order of play.  \n- The order of play is posted in a highly visible place in a general players’ area, as designated by the Referee.  \n- An Official Clock is designated by the Referee, and matches are called in accordance with the order of play using all available and reasonable means.  \n- Players must be ready to walk onto the court when their match is called.  \n- **Fines and default rules**:  \n  1. A player not ready to walk onto the court when called may be fined up to **$20,000**.  \n  2. A player not ready to play within **15 minutes** after the match is called may be fined an additional **$20,000** and will be defaulted unless the Referee, at his sole discretion and after considering all relevant circumstances, elects not to declare a default.  \n\n> **Source:** Grand Slam Rules, page 49.",
+        "retries": 0,
+        "keywords_ok": true,
+        "citation_ok": true,
+        "passed": true
+      },
+      {
+        "id": "gs-09",
+        "category": "single_doc",
+        "error": null,
+        "answer": "In Grand Slam tournaments:\n\n- **Men’s singles main‑draw matches** are played as the best of five sets.  \n- **All other matches** (women’s singles, doubles, mixed doubles, etc.) are played as the best of three sets, unless a specific Grand Slam decides otherwise.  \n\nTie‑breaks are used throughout the event: they may be played in the qualifying competition and in the main‑draw matches, including the final set, where a 10‑point tie‑break is played.  \n\n> Source: Grand Slam Rules, page 13",
+        "retries": 0,
+        "keywords_ok": true,
+        "citation_ok": true,
+        "passed": true
+      },
+      {
+        "id": "gs-10",
+        "category": "single_doc",
+        "error": null,
+        "answer": "The Grand Slam Rule Book states that **each Grand Slam Tournament must have a Tournament Doctor and Sports Physiotherapists available during the event**.  \n\nSource: *Grand Slam Rules*, page 9.",
+        "retries": 0,
+        "keywords_ok": true,
+        "citation_ok": true,
+        "passed": true
+      },
+      {
+        "id": "both-01",
+        "category": "both_docs",
+        "error": null,
+        "answer": "**ITF Rules on Coaching**  \n- Coaching is defined as any advice or instruction to a player, by any means.  \n- Coaching is **not permitted during the playing of a point**.  \n- **Off‑court coaching** may be allowed in events played under the Rules of Tennis **if the sanctioning body permits it**.  \n- **On‑court coaching** is only allowed in team events where a team captain sits on‑court; otherwise it is prohibited.  \n- Players may use approved Player‑Analysis Technology only when coaching is permitted.  \n- All coaching must comply with the conditions set out in Appendix IV.  \n\n*Source: ITF Rules, page 17*\n\n**Wimbledon (Grand Slam) Rules on Coaching**  \n- Wimbledon is a Grand Slam tournament, so the “Rules of Tennis and Duties and Procedures for Officials” published by the ITF apply to all Grand Slam matches **unless otherwise specified by the Grand Slam Tournament (GST)**.  \n- The provided Grand Slam excerpt does not contain any Wimbledon‑specific coaching provisions that differ from the ITF rules. Therefore, unless Wimbledon has issued its own separate coaching regulations (not included in the context), it follows the ITF coaching rules described above.  \n\n*Source: Grand Slam Rules, page 13*  \n\n**Comparison**  \n- Both sets of rules rely on the ITF coaching provisions.  \n- The ITF rules give the detailed framework (no coaching during a point, off‑court coaching allowed only with sanctioning‑body approval, on‑court coaching only in team events).  \n- Wimbledon, as a Grand Slam, adopts those ITF rules unless it publishes its own distinct coaching policy. No difference is indicated in the provided context.",
+        "retries": 0,
+        "keywords_ok": true,
+        "citation_ok": true,
+        "passed": true
+      },
+      {
+        "id": "both-02",
+        "category": "both_docs",
+        "error": null,
+        "answer": "No – the two sets of rules use different tie‑break formats.\n\n**Grand Slam rulebook**  \n- Tie‑breaks may be used in qualifying and main‑draw matches, *including the final set*, where a **10‑point tie‑break** is played.  \n  *Source: Grand Slam Rules, page 13*\n\n**ITF rules**  \n- In standard play, a tie‑break game is won by the first player/team to **7 points** with a margin of two.  \n- ITF also allows a **5‑point tie‑break** for “Short Sets” and a **7‑point match tie‑break** to replace a deciding final set.  \n  *Source: ITF Rules, page 30*\n\nThus, while both rulebooks use tie‑breaks, the Grand Slam book specifies a 10‑point final‑set tie‑break, whereas the ITF book uses 7‑point (or 5‑point for short sets) tie‑breaks. The formats are not the same.",
+        "retries": 0,
+        "keywords_ok": true,
+        "citation_ok": true,
+        "passed": true
+      },
+      {
+        "id": "mis-01",
+        "category": "misrouted",
+        "error": null,
+        "answer": "The provided context does not contain any ITF rules or penalties for audible obscenity.",
+        "retries": 2,
+        "keywords_ok": true,
+        "citation_ok": false,
+        "passed": false
+      },
+      {
+        "id": "fu-01",
+        "category": "follow_up",
+        "error": null,
+        "answer": "A let that occurs **during a rally** (i.e., when the ball is already in play) is called when an external factor interferes with the rally.  \nThe ITF Rules give the example:\n\n> “When the ball is in play, another ball rolls onto court. A let is called.”  \n> The whole point must be replayed. (Source: ITF Rules, page 12)\n\nIn other words, if a ball (or any other object) comes onto the court while the rally is underway and interferes with play, the umpire may call a let and the point is replayed. This is distinct from a service let, which only applies to the serve.",
+        "retries": 0,
+        "keywords_ok": true,
+        "citation_ok": true,
+        "passed": true
+      },
+      {
+        "id": "fu-02",
+        "category": "follow_up",
+        "error": null,
+        "answer": "The Grand Slam Rules state that a player who uses audible obscenity may be fined up to **$50,000 per violation**.  \nIf the offence occurs during a match (including warm‑up), the player will also receive the point penalty specified in the Point Penalty Schedule.  \nIn cases that are flagrant or particularly injurious, a single violation can be treated as a **Major Offence of “Aggravated Behaviour”**, which carries additional penalties beyond the fine and point penalty.  \n\nFor qualifying competitions, the Referee may limit the fine to a maximum of **$20,000 per violation**.  \n\n**Sources**  \n- Source: Grand Slam Rules, page 56  \n- Source: Grand Slam Rules, page 60",
+        "retries": 0,
+        "keywords_ok": true,
+        "citation_ok": true,
+        "passed": true
+      },
+      {
+        "id": "typo-01",
+        "category": "colloquial",
+        "error": null,
+        "answer": "**Foot faults** are a specific type of service‑fault that occurs when the server violates the rules about where and how they can stand during the service motion.\n\n| What the rules say | Key points |\n|--------------------|------------|\n| **Allowed movements** | The server may make slight foot movements, but cannot *walk or run* during the service motion. <br>Source: *ITF Rules*, page 11 |\n| **Forbidden touches** | • Touch the baseline or the court with either foot.<br>• Touch the area outside the imaginary extension of the sideline.<br>• Touch the imaginary extension of the centre mark.<br>Source: *ITF Rules*, page 11 |\n| **Singles vs. doubles** | In a singles match the server **cannot** stand behind the part of the baseline that lies between the singles sideline and the doubles sideline. In doubles this position is permitted. <br>Source: *ITF Rules*, page 11 |\n| **Feet off the ground** | The server may have one or both feet off the ground during the service motion. <br>Source: *ITF Rules*, page 11 |\n\n### How it’s called and who decides\n- **Line or net umpires** are responsible for calling foot‑faults during a match.  \n- If a line umpire cannot make a call, they must signal the chair umpire, who will then decide.  \n- The chair umpire has the final authority on all factual questions (including foot‑fault calls) and may overrule a line umpire if a clear mistake is evident.  \n- The referee is the ultimate authority on all tennis law questions.  \n- Players may request the referee’s intervention if they disagree with a chair umpire’s decision.  \n  <br>Source: *ITF Rules*, page 31\n\n**Bottom line:** A foot fault is called when the server’s feet break any of the movement or touch restrictions listed above. The chair umpire (or referee, if needed) makes the final call.",
+        "retries": 0,
+        "keywords_ok": true,
+        "citation_ok": true,
+        "passed": true
+      },
+      {
+        "id": "typo-02",
+        "category": "colloquial",
+        "error": null,
+        "answer": "No.  Under the Grand Slam rules you may only speak to your coach during an approved break (e.g., a medical timeout, a toilet‑break/​change‑of‑attire break, or another break the Chair Umpire has sanctioned).  Outside of those breaks, verbal coaching is prohibited while the match is in play.  \n\nSource: Grand Slam Rules, page 57.",
+        "retries": 0,
+        "keywords_ok": true,
+        "citation_ok": true,
+        "passed": true
+      },
+      {
+        "id": "typo-03",
+        "category": "colloquial",
+        "error": null,
+        "answer": "You may take **up to 25 seconds** between points.  \n\n- **ITF Rules**: “Between points, a maximum of twenty‑five (25) seconds is allowed.” (Source: ITF Rules, page 16)  \n- **Grand Slam Rules**: “The request, verification and resumption of play must all be completed within the twenty‑five (25) seconds allowed between points, unless the Chair Umpire determines that an extension is necessary.” (Source: Grand Slam Rules, page 23)",
+        "retries": 0,
+        "keywords_ok": true,
+        "citation_ok": true,
+        "passed": true
+      },
+      {
+        "id": "oos-01",
+        "category": "out_of_scope",
+        "error": null,
+        "answer": "I’m sorry, but the provided excerpts do not contain any information about the winner of Roland Garros 2024.",
+        "retries": 2,
+        "refused": true,
+        "passed": true
+      },
+      {
+        "id": "oos-02",
+        "category": "out_of_scope",
+        "error": null,
+        "answer": "The excerpts provided do not contain any information about specific racket brands or recommendations for beginners. Therefore, I cannot answer which brand is best based on the given context.",
+        "retries": 2,
+        "refused": true,
+        "passed": true
+      },
+      {
+        "id": "oos-03",
+        "category": "out_of_scope",
+        "error": null,
+        "answer": "I’m sorry, but the provided context only contains tennis rules and does not include any information about cooking pasta carbonara.",
+        "retries": 2,
+        "refused": true,
+        "passed": true
+      },
+      {
+        "id": "oos-04",
+        "category": "out_of_scope",
+        "error": null,
+        "answer": "The context does not contain enough information to answer that question.",
+        "retries": 2,
+        "refused": true,
+        "passed": true
+      }
+    ]
+  }
+}
