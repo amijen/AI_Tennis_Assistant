@@ -5,7 +5,7 @@ from langchain_core.output_parsers import StrOutputParser
 
 from app.config import settings
 from app.graph.state import AgentState
-from app.graph.tools import search_rules, format_context, truncate_context
+from app.graph.tools import search_rules, format_context, truncate_context, NO_RESULTS
 from app.graph.prompts import (
     CONTEXTUALIZE_PROMPT,
     GRADE_PROMPT,
@@ -147,12 +147,12 @@ def grade_node(state: AgentState) -> dict:
     Ask the LLM whether the retrieved context is relevant to the question.
     """
 
-    context = state.get("retrieved_context", "NO_RESULTS")
+    context = state.get("retrieved_context", NO_RESULTS)
     top_score = state.get("top_similarity", 0.0)
     steps = state.get("steps", [])
 
     # Skip grading if no results
-    if context == "NO_RESULTS":
+    if context == NO_RESULTS:
         return {
             "retrieval_grade": "irrelevant",
             "steps": steps + [{"action": "grade", "result": "no_results", "cost": "free"}],
@@ -210,10 +210,10 @@ def synthesize_node(state: AgentState) -> dict:
     """
     Generate the final answer from the retrieved context.
     """
-    context = state.get("retrieved_context", "NO_RESULTS")
+    context = state.get("retrieved_context", NO_RESULTS)
     history = state.get("chat_history", [])
 
-    if context == "NO_RESULTS":
+    if context == NO_RESULTS:
         answer = NO_RESULTS_ANSWER
     else:
         prompt = ChatPromptTemplate.from_template(SYNTHESIS_PROMPT)

@@ -1,4 +1,7 @@
-from app.db.retriever import search_similar_chunks 
+from app.db.retriever import search_similar_chunks
+
+# Single source of truth for "retrieval found nothing" (used by tools and nodes).
+NO_RESULTS = "NO_RESULTS"
 
 def search_rules(
         query: str,
@@ -30,7 +33,7 @@ def format_context(results: list[dict]) -> str:
     """
 
     if not results: 
-        return "NO RESULTS"
+        return NO_RESULTS
 
     lines = []
     for i, r in enumerate(results, 1):
