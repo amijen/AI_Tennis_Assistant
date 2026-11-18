@@ -18,8 +18,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements and install python dependencies
+# CPU-only torch first (the default Linux wheel bundles ~2.5 GB of CUDA libraries)
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu  && pip install --no-cache-dir -r requirements.txt
 
 # Pre-download the HuggingFace embedding model
 RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('BAAI/bge-base-en-v1.5')"
