@@ -121,9 +121,16 @@ def retrieve_node(state: AgentState) -> dict:
     Uses the reformulated query if available (on retry), otherwise the original.
     """
     query = state.get("reformulated_query") or state.get("standalone_question") or state["question"]
-    doc_filter = state["document_filter"]
+    routed_filter = state["document_filter"]
 
-    logger.info(f"Retrieving: query='{query}', filter={doc_filter}")
+    # On a retry, drop the routing filter: the first search may have gone to the
+    # wrong rulebook. top_k stays the same (a bigger top_k only shrinks each chunk
+    # under the fixed context budget).
+    retry = state.get("retry_count", 0)
+    doc_filter = routed_filter if retry == 0 else None
+    widened = retry > 0 and routed_filter is not None
+
+    logger.info(f"Retrieving: query='{query}', filter={doc_filter}, widened={widened}")
 
     results = search_rules(
         query = query,
@@ -140,6 +147,7 @@ def retrieve_node(state: AgentState) -> dict:
         "action": "retrieve",
         "query": query,
         "filter": doc_filter,
+        "widened": widened,
         "num_results": len(results),
         "top_score": top_score,
     }
