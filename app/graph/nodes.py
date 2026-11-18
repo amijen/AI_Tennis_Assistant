@@ -1,4 +1,5 @@
-import logging 
+import logging
+import re
 from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
@@ -41,6 +42,22 @@ ITF_KEYWORDS = [
     "rules of tennis", "itf rule",
 ]
 
+def _matches(keywords: list[str], text: str) -> bool:
+    """True if any keyword appears as a whole word/phrase (not inside another word)."""
+    return any(re.search(rf"(?<!\w){re.escape(kw)}(?!\w)", text) for kw in keywords)
+
+def _route_filter(question: str) -> tuple[str | None, str]:
+    """Deterministic keyword routing -> (document_filter, reason)."""
+    q_lower = question.lower()
+    itf, gs = _matches(ITF_KEYWORDS, q_lower), _matches(GS_KEYWORDS, q_lower)
+    if itf and gs:
+        return None, "Both rulebooks named"
+    if itf:
+        return "ITF Rules", "ITF keyword detected"
+    if gs:
+        return "Grand Slam Rules", "Grand Slam keyword detected"
+    return None, "Searching both rulebooks"
+
 def _format_history(history: list[dict], max_turns: int = 4) -> str:
     """
     Format the last N conversation into a string.
@@ -81,16 +98,7 @@ def route_node(state: AgentState) -> dict:
 
     # 2. Keyword routing on the standalone question
 
-    q_lower = standalone.lower()
-    if any(kw in q_lower for kw in ITF_KEYWORDS):
-        doc_filter = "ITF Rules"
-        reason = "ITF keyword detected"
-    elif any(kw in q_lower for kw in GS_KEYWORDS):
-        doc_filter = "Grand Slam Rules"
-        reason = "Grand Slam keyword detected"
-    else:
-        doc_filter = None
-        reason = "Searching both rulebooks"
+    doc_filter, reason = _route_filter(standalone)
 
     return {
         "standalone_question": standalone,
