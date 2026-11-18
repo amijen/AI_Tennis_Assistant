@@ -101,12 +101,21 @@ def _find_page_for_position(
     return current_page
 
 
-_LOCATE_PREFIX = 80
+_LOCATE_WORDS = 12
 
 
 def _locate(snippet: str, full_text: str, start: int) -> int:
-    """Offset of snippet's opening characters in full_text at/after start, or -1."""
-    return full_text.find(snippet[:_LOCATE_PREFIX], max(start, 0))
+    """
+    Offset of snippet's opening words in full_text at/after start, or -1.
+    Whitespace-tolerant: pieces re-joined by _group_parts differ from the source
+    text in blank lines, so an exact substring search would miss them.
+    """
+    words = snippet.split()[:_LOCATE_WORDS]
+    if not words:
+        return -1
+    pattern = r"\s+".join(re.escape(w) for w in words)
+    match = re.compile(pattern).search(full_text, max(start, 0))
+    return match.start() if match else -1
 
 
 def _assign_pages(parents: list, full_text: str, page_boundaries: list) -> None:

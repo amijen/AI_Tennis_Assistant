@@ -43,3 +43,13 @@ def test_parent_starting_mid_page_gets_that_page():
 
     assert rule2.page == 7
     assert all(c.page == 7 for c in rule2.children)
+
+
+def test_rejoined_pieces_are_still_located():
+    """Oversized parents are re-joined with blank lines; locating must ignore whitespace."""
+    from app.ingestion.splitter import _locate
+
+    full_text = "intro\n1. Singles Entries\n  a. Closing Date\nThe closing date is Monday.\n"
+    rejoined = "1. Singles Entries\n\n\na. Closing Date\n\nThe closing date is Monday."
+
+    assert _locate(rejoined, full_text, 0) == full_text.index("1. Singles")
