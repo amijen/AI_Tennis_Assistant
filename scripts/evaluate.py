@@ -32,6 +32,7 @@ REFUSAL_MARKERS = (
     "doesn't contain", "no information", "not enough information",
     "not covered", "cannot find", "can't find", "not specified",
     "outside the scope", "not mentioned", "no relevant",
+    "does not include", "doesn't include", "only contains",
 )
 CITATION_RE = re.compile(r"source:\s*\[?[^\n\],]+\]?,\s*page\s*\[?\d+", re.IGNORECASE)
 

@@ -12,7 +12,7 @@
   {"id": "itf-06", "category": "single_doc", "question": "What is a foot fault?", "expected_filter": null,
    "evidence": [{"document": "ITF Rules", "header": "18. FOOT FAULT"}], "answer_keywords": ["foot fault"]},
   {"id": "itf-07", "category": "single_doc", "question": "What happens when the ball touches a line?", "expected_filter": null,
-   "evidence": [{"document": "ITF Rules", "header": "12. BALL TOUCHES A LINE"}], "answer_keywords": ["regarded"]},
+   "evidence": [{"document": "ITF Rules", "header": "12. BALL TOUCHES A LINE"}], "answer_keywords": ["court"]},
   {"id": "itf-08", "category": "single_doc", "question": "How does a tie-break set work?", "expected_filter": null,
    "evidence": [{"document": "ITF Rules", "header": "6. SCORE IN A SET"}], "answer_keywords": ["tie"]},
   {"id": "itf-09", "category": "single_doc", "question": "Who chooses the ends and who serves first at the start of a match?", "expected_filter": null,

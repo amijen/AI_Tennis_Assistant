@@ -69,6 +69,8 @@ def test_has_citation_matches_documented_format():
 def test_is_refusal():
     assert is_refusal("I could not find relevant information about this topic.")
     assert is_refusal("The context does not contain this information.")
+    # real answer to the out-of-scope question oos-03 (baseline-answers.json)
+    assert is_refusal("I am sorry, but the provided context only contains tennis rules and does not include any information about cooking pasta carbonara.")
     assert not is_refusal("A foot fault happens when... Source: ITF Rules, page 11")
     assert is_refusal("exact fallback", no_results_answer="exact fallback")
 
