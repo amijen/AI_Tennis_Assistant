@@ -65,6 +65,7 @@ def ingest(pdf_path: str, doc_name: str, doc_type: str, skip_pages: int = 0):
                         parent_id=parent_id,
                         document_id=doc_id,
                         content=child.content,
+                        page=child.page,
                         embedding=embedding,
                         metadata=child.metadata,
                     )

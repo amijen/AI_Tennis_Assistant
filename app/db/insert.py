@@ -66,7 +66,7 @@ def insert_parent_chunk(conn, document_id: int, content: str, page: int, metadat
     return result.fetchone()[0]
 
 
-def insert_child_chunk(conn, parent_id: int, document_id: int, content: str, embedding: list, metadata: dict):
+def insert_child_chunk(conn, parent_id: int, document_id: int, content: str, embedding: list, metadata: dict, page: int | None = None):
     """
     Insert a child chunk with embedding.
 
@@ -80,16 +80,18 @@ def insert_child_chunk(conn, parent_id: int, document_id: int, content: str, emb
         content: Text content of the child
         embedding: 768-dimensional vector (list of floats)
         metadata: Dict inherited from parent + child_index
+        page: Page where this child's own text starts
     """
     conn.execute(
         text("""
-            INSERT INTO child_chunks (parent_id, document_id, content, embedding, metadata)
-            VALUES (:parent_id, :doc_id, :content, CAST(:embedding AS vector), :metadata)
+            INSERT INTO child_chunks (parent_id, document_id, content, page, embedding, metadata)
+            VALUES (:parent_id, :doc_id, :content, :page, CAST(:embedding AS vector), :metadata)
         """),
         {
             "parent_id": parent_id,
             "doc_id": document_id,
             "content": content,
+            "page": page,
             "embedding": str(embedding),
             "metadata": json.dumps(metadata)
         }

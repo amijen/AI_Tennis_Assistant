@@ -41,6 +41,7 @@ def search_similar_chunks(
         WITH ranked_children AS (
             SELECT 
                 c.parent_id,
+                c.page AS child_page,
                 c.embedding <=> CAST(:query_embedding AS vector) AS distance,
                 ROW_NUMBER() OVER (
                     PARTITION BY c.parent_id 
@@ -54,7 +55,7 @@ def search_similar_chunks(
             p.id AS parent_id,
             p.content AS parent_content,
             p.metadata AS parent_metadata,
-            p.page,
+            COALESCE(rc.child_page, p.page) AS page,  -- best child's page
             d.name AS document_name,
             1 - rc.distance AS similarity
         FROM ranked_children rc

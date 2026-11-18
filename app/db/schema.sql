@@ -27,6 +27,7 @@ CREATE TABLE child_chunks (
     parent_id INTEGER NOT NULL REFERENCES parent_chunks(id) ON DELETE CASCADE,
     document_id INTEGER NOT NULL REFERENCES documents(id) ON DELETE CASCADE,
     content TEXT NOT NULL,
+    page INTEGER,                  -- page where THIS child's text starts
     embedding vector(768),
     metadata JSONB
 );

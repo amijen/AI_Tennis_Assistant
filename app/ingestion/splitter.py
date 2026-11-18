@@ -12,6 +12,7 @@ class ParentChunk:
     page: int
     metadata: dict = field(default_factory=dict)
     children: list = field(default_factory=list)
+    start_char: int = -1  # offset in the document text; -1 = unknown
 
 
 @dataclass
@@ -98,6 +99,30 @@ def _find_page_for_position(
         else:
             break
     return current_page
+
+
+_LOCATE_PREFIX = 80
+
+
+def _locate(snippet: str, full_text: str, start: int) -> int:
+    """Offset of snippet's opening characters in full_text at/after start, or -1."""
+    return full_text.find(snippet[:_LOCATE_PREFIX], max(start, 0))
+
+
+def _assign_pages(parents: list, full_text: str, page_boundaries: list) -> None:
+    """
+    Set each parent's start offset and true start page from where its text sits in
+    the document (parents are in document order). Pieces cut from a larger chunk
+    and Grand Slam sub-sections previously inherited the article's first page.
+    """
+    cursor = 0
+    for parent in parents:
+        pos = _locate(parent.content, full_text, cursor)
+        if pos == -1:
+            continue  # keep the page we already have
+        parent.start_char = pos
+        parent.page = _find_page_for_position(pos, page_boundaries)
+        cursor = pos
 
 
 # ============================================================
@@ -295,14 +320,22 @@ def split_into_parent_chunks(
                     }
                 ))
 
+    _assign_pages(parents, full_text, page_boundaries)
+
     print(f"   Created {len(parents)} parent chunks for {doc_type}")
     return parents
 
 
 def split_parent_into_children(
     parent: ParentChunk,
-    doc_type: str
+    doc_type: str,
+    full_text: str = "",
+    page_boundaries: list | None = None,
 ) -> list[ChildChunk]:
+    """
+    Split a parent into children. When full_text/page_boundaries are given, each
+    child gets the page its own text starts on; otherwise it inherits the parent's.
+    """
     config = ITF_CONFIG if doc_type == "ITF" else GRAND_SLAM_CONFIG
 
     splitter = RecursiveCharacterTextSplitter(
@@ -311,13 +344,24 @@ def split_parent_into_children(
         separators=["\n\n", "\n", ". ", " ", ""]
     )
 
+    can_locate = bool(page_boundaries) and parent.start_char >= 0
+    cursor = parent.start_char
+    parent_end = parent.start_char + len(parent.content) + 100  # slack for re-joined pieces
+
     children = []
     for i, text in enumerate(splitter.split_text(parent.content)):
         if not text.strip():
             continue
+        text = text.strip()
+        page = parent.page
+        if can_locate:
+            pos = _locate(text, full_text, cursor)
+            if pos != -1 and pos < parent_end:
+                page = _find_page_for_position(pos, page_boundaries)
+                cursor = pos
         children.append(ChildChunk(
-            content=text.strip(),
-            page=parent.page,
+            content=text,
+            page=page,
             metadata={**parent.metadata, "child_index": i}
         ))
     return children
@@ -328,9 +372,15 @@ def process_document(
     doc_type: str
 ) -> list[ParentChunk]:
     parents = split_into_parent_chunks(pages, doc_type)
+    config = ITF_CONFIG if doc_type == "ITF" else GRAND_SLAM_CONFIG
+    full_text, page_boundaries = _build_text_with_page_map(
+        pages, skip_pages=config["skip_pages"]
+    )
     total_children = 0
     for parent in parents:
-        parent.children = split_parent_into_children(parent, doc_type)
+        parent.children = split_parent_into_children(
+            parent, doc_type, full_text, page_boundaries
+        )
         total_children += len(parent.children)
     print(f"   Total: {len(parents)} parents, {total_children} children")
     return parents
