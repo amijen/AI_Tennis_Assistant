@@ -95,7 +95,12 @@ def route_node(state: AgentState) -> dict:
     return {
         "standalone_question": standalone,
         "document_filter": doc_filter,
+        # Reset per-question state: the checkpointer keeps the previous turn's values.
         "retry_count": 0,
+        "reformulated_query": "",
+        "retrieval_grade": "",
+        "top_similarity": 0.0,
+        "retrieved_context": "",
         "steps": [{"action": "route", "filter": doc_filter, "standalone": standalone, "reason": reason}],
     }
 
