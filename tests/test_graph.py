@@ -1,7 +1,10 @@
-from app.graph.builder import agent_graph
+import pytest
 
 
+@pytest.mark.integration
 def test_graph():
+    from app.graph.builder import agent_graph
+
     questions = [
         "How does the tie-break work?",
         "What are the dimensions of the court according to ITF?",

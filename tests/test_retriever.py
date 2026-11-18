@@ -1,6 +1,10 @@
-from app.db.retriever import search_similar_chunks 
+import pytest
 
+
+@pytest.mark.integration
 def test_retrieval():
+    from app.db.retriever import search_similar_chunks
+
     test_queries = [
         ("What are the dimensions of the tennis court?", "ITF Rules"),
         ("What is the penalty for coaching during a match?", "Grand Slam Rules"),
